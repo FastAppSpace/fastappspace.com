@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAppSpace - Professional Mobile App Development</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #6e8efb 0%, #a777e3 100%);
+        }
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .mobile-mockup {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            border: 12px solid #1a202c;
+            border-radius: 40px;
+            background: #f8fafc;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .mobile-mockup:before {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 25px;
+            background: #1a202c;
+            border-radius: 0 0 20px 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+        }
+        .mobile-screen {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 28px;
+        }
+        @media (max-width: 768px) {
+            .mobile-mockup {
+                width: 250px;
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="flex items-center">
+                            <i class="fas fa-rocket text-purple-600 text-2xl mr-2"></i>
+                            <span class="text-xl font-bold text-gray-900">FastAppSpace</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:ml-6 md:flex md:space-x-8">
+                    <a href="#home" class="border-purple-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Home</a>
+                    <a href="#apps" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Our Apps</a>
+                    <a href="#about" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">About</a>
+                    <a href="#contact" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Contact</a>
+                </div>
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500" id="mobile-menu-button">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="hidden md:hidden" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="#home" class="bg-purple-50 border-purple-500 text-purple-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Home</a>
+                <a href="#apps" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Our Apps</a>
+                <a href="#about" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">About</a>
+                <a href="#contact" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="gradient-bg text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">Transform Your Ideas Into Powerful Mobile Apps</h1>
+                    <p class="text-xl mb-8 text-purple-100">We create high-performance mobile applications that users love. Fast development, beautiful design, and seamless functionality.</p>
+                    <div class="flex space-x-4">
+                        <a href="#apps" class="bg-white text-purple-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold text-lg shadow-lg transition duration-300">Explore Apps</a>
+                        <a href="#contact" class="border-2 border-white text-white hover:bg-white hover:text-purple-600 px-6 py-3 rounded-lg font-semibold text-lg shadow-lg transition duration-300">Get In Touch</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="mobile-mockup">
+                        <div class="mobile-screen">
+                            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="App showcase" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Apps Section -->
+    <section id="apps" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Featured Applications</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Discover our portfolio of high-quality mobile applications designed to solve real problems with elegant solutions.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- App Card 1 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden app-card transition duration-300">
+                    <div class="h-48 bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center">
+                        <i class="fas fa-calendar-check text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-gray-900">TaskFlow Pro</h3>
+                            <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">NEW</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">The ultimate productivity app that helps you organize tasks, set reminders, and track your progress with intuitive interfaces.</p>
+                        <div class="flex space-x-3">
+                            <a href="#" class="flex items-center text-gray-800 hover:text-purple-600">
+                                <i class="fab fa-apple mr-2"></i>
+                                <span>App Store</span>
+                            </a>
+                            <a href="#" class="flex items-center text-gray-800 hover:text-purple-600">
+                                <i class="fab fa-google-play mr-2"></i>
+                                <span>Play Store</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- App Card 2 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden app-card transition duration-300">
+                    <div class="h-48 bg-gradient-to-r from-purple-400 to-pink-500 flex items-center justify-center">
+                        <i class="fas fa-wallet text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">MoneyTrack</h3>
+                        <p class="text-gray-600 mb-4">Comprehensive personal finance app that helps you budget, track expenses, and achieve your financial goals with ease.</p>
+                        <div class="flex space-x-3">
+                            <a href="#" class="flex items-center text-gray-800 hover:text-purple-600">
+                                <i class="fab fa-apple mr-2"></i>
+                                <span>App Store</span>
+                            </a>
+                            <a href="#" class="flex items-center text-gray-800 hover:text-purple-600">
+                                <i class="fab fa-google-play mr-2"></i>
+                                <span>Play Store</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- App Card 3 -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden app-card transition duration-300">
+                    <div class="h-48 bg-gradient-to-r from-pink-400 to-red-500 flex items-center justify-center">
+                        <i class="fas fa-heartbeat text-white text-6xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">HealthPulse</h3>
+                        <p class="text-gray-600 mb-4">Your personal health companion that tracks fitness activities, nutrition, sleep patterns, and provides personalized insights.</p>
+                        <div class="flex space-x-3">
+                            <a href="#" class="flex items-center text-gray-800 hover:text-purple-600">
+                                <i class="fab fa-apple mr-2"></i>
+                                <span>App Store</span>
+                            </a>
+                            <a href="#" class="flex items-center text-gray-800 hover:text-purple-600">
+                                <i class="fab fa-google-play mr-2"></i>
+                                <span>Play Store</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="#" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700">
+                    View All Applications
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-6 rounded-lg">
+                    <div class="text-5xl font-bold text-purple-600 mb-2">1M+</div>
+                    <div class="text-xl text-gray-600">Downloads</div>
+                </div>
+                <div class="p-6 rounded-lg">
+                    <div class="text-5xl font-bold text-purple-600 mb-2">4.8</div>
+                    <div class="text-xl text-gray-600">Average Rating</div>
+                </div>
+                <div class="p-6 rounded-lg">
+                    <div class="text-5xl font-bold text-purple-600 mb-2">50+</div>
+                    <div class="text-xl text-gray-600">Countries</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Our team" class="rounded-xl shadow-xl w-full">
+                </div>
+                <div class="md:w-1/2 md:pl-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">About FastAppSpace</h2>
+                    <p class="text-lg text-gray-600 mb-6">Founded in 2018, FastAppSpace is a team of passionate developers, designers, and product specialists dedicated to creating mobile applications that make a difference.</p>
+                    <p class="text-lg text-gray-600 mb-6">We believe in the power of technology to solve real-world problems and enhance people's lives. Our approach combines cutting-edge development with thoughtful user experience design.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <i class="fas fa-check-circle text-purple-500"></i>
+                            </div>
+                            <p class="ml-3 text-lg text-gray-600">Award-winning app development studio</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <i class="fas fa-check-circle text-purple-500"></i>
+                            </div>
+                            <p class="ml-3 text-lg text-gray-600">5+ years of industry experience</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mt-1">
+                                <i class="fas fa-check-circle text-purple-500"></i>
+                            </div>
+                            <p class="ml-3 text-lg text-gray-600">Client-focused development process</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">What Our Users Say</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Hear from people who have experienced our apps firsthand.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="flex-shrink-0">
+                            <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/women/42.jpg" alt="User testimonial">
+                        </div>
+                        <div class="ml-4">
+                            <div class="font-medium text-gray-900">Sarah Johnson</div>
+                            <div class="text-purple-600">TaskFlow Pro User</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"This app has completely transformed how I manage my daily tasks. The interface is so intuitive and the cross-device sync works flawlessly."</p>
+                    <div class="mt-4 flex">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="flex-shrink-0">
+                            <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/men/32.jpg" alt="User testimonial">
+                        </div>
+                        <div class="ml-4">
+                            <div class="font-medium text-gray-900">Michael Chen</div>
+                            <div class="text-purple-600">MoneyTrack User</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"I've tried many finance apps but MoneyTrack is by far the most comprehensive yet simple to use. The reports and insights are incredibly valuable."</p>
+                    <div class="mt-4 flex">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star-half-alt text-yellow-400"></i>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="flex-shrink-0">
+                            <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/women/65.jpg" alt="User testimonial">
+                        </div>
+                        <div class="ml-4">
+                            <div class="font-medium text-gray-900">Emma Rodriguez</div>
+                            <div class="text-purple-600">HealthPulse User</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"HealthPulse helped me lose 15 pounds by keeping me accountable. The sleep tracking and activity suggestions are game-changers."</p>
+                    <div class="mt-4 flex">
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                        <i class="fas fa-star text-yellow-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
+                <p class="text-xl text-purple-100 max-w-3xl mx-auto">Have a project in mind or want to learn more about our services? We'd love to hear from you.</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-8 h-full">
+                        <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 mt-1">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-purple-100 font-medium">Address</p>
+                                    <p class="mt-1">123 App Street, Tech Valley, CA 94000</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 mt-1">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-purple-100 font-medium">Email</p>
+                                    <p class="mt-1">hello@fastappspace.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 mt-1">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-purple-100 font-medium">Phone</p>
+                                    <p class="mt-1">+1 (555) 123-4567</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <h4 class="text-xl font-bold mb-4">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center hover:bg-opacity-30 transition">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center hover:bg-opacity-30 transition">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center hover:bg-opacity-30 transition">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center hover:bg-opacity-30 transition">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 md:pl-10">
+                    <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-8">
+                        <h3 class="text-2xl font-bold mb-6">Send Us a Message</h3>
+                        <form>
+                            <div class="mb-6">
+                                <label for="name" class="block text-purple-100 font-medium mb-2">Your Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent placeholder-purple-200" placeholder="John Doe">
+                            </div>
+                            <div class="mb-6">
+                                <label for="email" class="block text-purple-100 font-medium mb-2">Email Address</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent placeholder-purple-200" placeholder="john@example.com">
+                            </div>
+                            <div class="mb-6">
+                                <label for="subject" class="block text-purple-100 font-medium mb-2">Subject</label>
+                                <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent placeholder-purple-200" placeholder="How can we help?">
+                            </div>
+                            <div class="mb-6">
+                                <label for="message" class="block text-purple-100 font-medium mb-2">Message</label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent placeholder-purple-200" placeholder="Your message here..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-white text-purple-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold text-lg shadow-lg transition duration-300">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-rocket text-purple-500 text-2xl mr-2"></i>
+                        <span class="text-xl font-bold">FastAppSpace</span>
+                    </div>
+                    <p class="text-gray-400">Creating mobile experiences that delight users and drive business results.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
+                        <li><a href="#apps" class="text-gray-400 hover:text-white transition">Our Apps</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition">About Us</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Popular Apps</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">TaskFlow Pro</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">MoneyTrack</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">HealthPulse</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">All Applications</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Subscribe to our newsletter for the latest updates and releases.</p>
+                    <div class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 w-full">
+                        <button class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-r-lg transition">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">© 2025 FastAppSpace. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
