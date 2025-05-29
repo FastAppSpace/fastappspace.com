@@ -247,6 +247,38 @@
             font-size: 0.875rem;
             margin-top: 0.25rem;
         }
+
+        /* Add these styles to your existing styles */
+        .form-input {
+            padding-right: 2.5rem;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .form-input:focus {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .form-input.error {
+            border-color: #ef4444;
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        .success-message {
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
     </style>
 </head>
 <body class="font-sans antialiased text-gray-800 scroll-smooth">
@@ -845,29 +877,57 @@
                             <input type="hidden" name="access_key" value="832bded8-127a-44f0-b528-abdeb709ded3">
                             <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
                             
-                            <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
-                                <input type="text" name="name" id="name" required 
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 form-input">
+                            <div class="relative">
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                                <div class="relative">
+                                    <input type="text" name="name" id="name" required 
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 form-input transition duration-200"
+                                        placeholder="Your name">
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                        <i class="fas fa-user text-gray-400"></i>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                                <input type="email" name="email" id="email" required 
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 form-input">
+
+                            <div class="relative">
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                <div class="relative">
+                                    <input type="email" name="email" id="email" required 
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 form-input transition duration-200"
+                                        placeholder="your.email@example.com">
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                        <i class="fas fa-envelope text-gray-400"></i>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
-                                <input type="tel" name="phone" id="phone" 
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 form-input">
+
+                            <div class="relative">
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number (Optional)</label>
+                                <div class="relative">
+                                    <input type="tel" name="phone" id="phone" 
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 form-input transition duration-200"
+                                        placeholder="+1 (555) 000-0000">
+                                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                        <i class="fas fa-phone text-gray-400"></i>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <label for="message" class="block text-sm font-medium text-gray-700">Project Details</label>
-                                <textarea name="message" id="message" rows="4" required 
-                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 form-input"></textarea>
+
+                            <div class="relative">
+                                <label for="message" class="block text-sm font-medium text-gray-700 mb-1">Project Details</label>
+                                <div class="relative">
+                                    <textarea name="message" id="message" rows="4" required 
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500 form-input transition duration-200 resize-none"
+                                        placeholder="Tell us about your project..."></textarea>
+                                    <div class="absolute bottom-3 right-3 pointer-events-none">
+                                        <i class="fas fa-comment-alt text-gray-400"></i>
+                                    </div>
+                                </div>
                             </div>
+
                             <div class="relative">
                                 <button type="submit" 
-                                    class="w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-all duration-200">
+                                    class="w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-all duration-200 transform hover:-translate-y-0.5">
                                     <span class="submit-text">Send Message</span>
                                     <span class="loading-spinner hidden">
                                         <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -1233,31 +1293,48 @@
                 if (result.success) {
                     // Show success message
                     const successMessage = document.createElement('div');
-                    successMessage.className = 'mt-4 p-4 bg-green-50 text-green-700 rounded-md';
-                    successMessage.textContent = 'Message sent successfully! We\'ll get back to you soon.';
+                    successMessage.className = 'mt-4 p-4 bg-green-50 text-green-700 rounded-md success-message';
+                    successMessage.innerHTML = `
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>Message sent successfully! We'll get back to you soon.</span>
+                        </div>
+                    `;
                     form.appendChild(successMessage);
                     
-                    // Reset form
-                    form.reset();
+                    // Reset form with animation
+                    inputs.forEach(input => {
+                        input.classList.remove('border-green-500');
+                        input.value = '';
+                    });
                     
                     // Remove success message after 5 seconds
                     setTimeout(() => {
-                        successMessage.remove();
+                        successMessage.style.opacity = '0';
+                        successMessage.style.transform = 'translateY(-10px)';
+                        setTimeout(() => successMessage.remove(), 300);
                     }, 5000);
                 } else {
                     throw new Error(result.message || 'Failed to send message');
                 }
             } catch (error) {
                 console.error('Form submission error:', error);
-                // Show error message
+                // Show error message with animation
                 const errorMessage = document.createElement('div');
-                errorMessage.className = 'mt-4 p-4 bg-red-50 text-red-700 rounded-md';
-                errorMessage.textContent = error.message || 'Failed to send message. Please try again later.';
+                errorMessage.className = 'mt-4 p-4 bg-red-50 text-red-700 rounded-md success-message';
+                errorMessage.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="fas fa-exclamation-circle mr-2"></i>
+                        <span>${error.message || 'Failed to send message. Please try again later.'}</span>
+                    </div>
+                `;
                 form.appendChild(errorMessage);
                 
                 // Remove error message after 5 seconds
                 setTimeout(() => {
-                    errorMessage.remove();
+                    errorMessage.style.opacity = '0';
+                    errorMessage.style.transform = 'translateY(-10px)';
+                    setTimeout(() => errorMessage.remove(), 300);
                 }, 5000);
             } finally {
                 // Reset button state
