@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /privacy.html
+Allow: /terms.html
+Allow: /cookies.html
+
+Disallow: /404.html
+
+Sitemap: https://fastappspace.com/sitemap.xml 

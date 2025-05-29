@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Rocket Body -->
+    <path d="M256 32C256 32 192 96 192 192C192 192 160 224 160 256C160 288 192 320 192 320C192 320 256 384 256 384C256 384 320 320 320 320C320 320 352 288 352 256C352 224 320 192 320 192C320 96 256 32 256 32Z" fill="#6E8EFB"/>
+    
+    <!-- Rocket Window -->
+    <circle cx="256" cy="256" r="32" fill="#FFFFFF"/>
+    
+    <!-- Rocket Fins -->
+    <path d="M192 320L160 384L192 384L224 320H192Z" fill="#A777E3"/>
+    <path d="M320 320L288 384L320 384L352 320H320Z" fill="#A777E3"/>
+    
+    <!-- Rocket Flame -->
+    <path d="M224 384L256 448L288 384H224Z" fill="#FF6B6B"/>
+    <path d="M240 384L256 416L272 384H240Z" fill="#FFD93D"/>
+</svg> 

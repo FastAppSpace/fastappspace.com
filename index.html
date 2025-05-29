@@ -3,17 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FastAppSpace - Professional mobile app development company specializing in iOS and Android applications. Transform your ideas into powerful mobile apps.">
+    <meta name="keywords" content="mobile app development, iOS development, Android development, app design, UI/UX design, mobile applications">
+    <meta name="author" content="FastAppSpace">
+    <meta name="theme-color" content="#6e8efb">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fastappspace.com/">
+    <meta property="og:title" content="FastAppSpace - Professional Mobile App Development">
+    <meta property="og:description" content="Transform your ideas into powerful mobile applications with FastAppSpace. Expert iOS and Android development services.">
+    <meta property="og:image" content="https://fastappspace.com/og-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://fastappspace.com/">
+    <meta property="twitter:title" content="FastAppSpace - Professional Mobile App Development">
+    <meta property="twitter:description" content="Transform your ideas into powerful mobile applications with FastAppSpace. Expert iOS and Android development services.">
+    <meta property="twitter:image" content="https://fastappspace.com/twitter-image.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/icons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
     <title>FastAppSpace - Professional Mobile App Development</title>
+    
+    <!-- Preload critical assets -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preload" href="/assets/icons/rocket.svg" as="image" type="image/svg+xml">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "FastAppSpace",
+        "url": "https://fastappspace.com",
+        "logo": "https://fastappspace.com/assets/icons/rocket.svg",
+        "description": "Professional mobile app development company specializing in iOS and Android applications.",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "123 Innovation Street",
+            "addressLocality": "Tech City",
+            "postalCode": "TC 12345",
+            "addressCountry": "US"
+        },
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+1-555-123-4567",
+            "contactType": "customer service",
+            "email": "contact@fastappspace.com"
+        },
+        "sameAs": [
+            "https://facebook.com/fastappspace",
+            "https://twitter.com/fastappspace",
+            "https://linkedin.com/company/fastappspace",
+            "https://instagram.com/fastappspace"
+        ]
+    }
+    </script>
+    
+    <!-- Styles -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="error-handler.js"></script>
+    
     <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
         .gradient-bg {
             background: linear-gradient(135deg, #6e8efb 0%, #a777e3 100%);
         }
+        
+        .app-card {
+            transition: all 0.3s ease;
+        }
+        
         .app-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
+        
         .mobile-mockup {
             position: relative;
             width: 300px;
@@ -23,6 +107,7 @@
             background: #f8fafc;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
+        
         .mobile-mockup:before {
             content: '';
             position: absolute;
@@ -34,26 +119,151 @@
             transform: translateX(-50%);
             top: 0;
         }
+        
         .mobile-screen {
             width: 100%;
             height: 100%;
             overflow: hidden;
             border-radius: 28px;
         }
+        
+        .nav-scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mobile-menu {
+            transition: all 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        .mobile-menu.active {
+            max-height: 500px;
+        }
+        
         @media (max-width: 768px) {
             .mobile-mockup {
                 width: 250px;
                 height: 500px;
             }
         }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #a777e3;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6e8efb;
+        }
+        
+        /* Skip to main content */
+        .skip-to-main {
+            position: absolute;
+            left: -9999px;
+            z-index: 999;
+            padding: 1em;
+            background-color: #6e8efb;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .skip-to-main:focus {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #6e8efb;
+            color: white;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .back-to-top:hover {
+            background: #5d7de9;
+            transform: translateY(-3px);
+        }
+        
+        /* Loading state for images */
+        .image-loading {
+            position: relative;
+            background: #f3f4f6;
+            overflow: hidden;
+        }
+        
+        .image-loading::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Form validation styles */
+        .form-input.error {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+        }
+        
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
     </style>
 </head>
-<body class="font-sans antialiased text-gray-800">
+<body class="font-sans antialiased text-gray-800 scroll-smooth">
+    <!-- Skip to main content -->
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+    
+    <!-- Back to top button -->
+    <a href="#" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
     <!-- Navigation -->
-    <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <nav id="navbar" class="bg-white shadow-lg sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center">
                     <div class="flex-shrink-0 flex items-center">
                         <div class="flex items-center">
                             <i class="fas fa-rocket text-purple-600 text-2xl mr-2"></i>
@@ -61,444 +271,1076 @@
                         </div>
                     </div>
                 </div>
-                <div class="hidden md:ml-6 md:flex md:space-x-8">
-                    <a href="#home" class="border-purple-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Home</a>
-                    <a href="#apps" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Our Apps</a>
-                    <a href="#about" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">About</a>
-                    <a href="#contact" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Contact</a>
+                <div class="hidden md:ml-6 md:flex md:space-x-8 items-center">
+                    <a href="#home" class="border-purple-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition">Home</a>
+                    <a href="#apps" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition">Our Apps</a>
+                    <a href="#about" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition">About</a>
+                    <a href="#contact" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition">Contact</a>
                 </div>
                 <div class="-mr-2 flex items-center md:hidden">
                     <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500" id="mobile-menu-button">
                         <span class="sr-only">Open main menu</span>
-                        <i class="fas fa-bars"></i>
+                        <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
             </div>
         </div>
 
         <!-- Mobile menu -->
-        <div class="hidden md:hidden" id="mobile-menu">
-            <div class="pt-2 pb-3 space-y-1">
-                <a href="#home" class="bg-purple-50 border-purple-500 text-purple-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Home</a>
-                <a href="#apps" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Our Apps</a>
-                <a href="#about" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">About</a>
-                <a href="#contact" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">Contact</a>
+        <div class="mobile-menu md:hidden bg-white shadow-lg" id="mobile-menu">
+            <div class="pt-2 pb-4 px-4 space-y-1">
+                <a href="#home" class="bg-purple-50 border-purple-500 text-purple-700 block pl-3 pr-4 py-3 rounded-md text-base font-medium transition">Home</a>
+                <a href="#apps" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 block pl-3 pr-4 py-3 rounded-md text-base font-medium transition">Our Apps</a>
+                <a href="#about" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 block pl-3 pr-4 py-3 rounded-md text-base font-medium transition">About</a>
+                <a href="#contact" class="border-transparent text-gray-600 hover:bg-gray-50 hover:border-gray-300 block pl-3 pr-4 py-3 rounded-md text-base font-medium transition">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="gradient-bg text-white py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-center justify-between">
-                <div class="md:w-1/2 mb-10 md:mb-0">
-                    <h1 class="text-4xl md:text-5xl font-bold mb-6">Transform Your Ideas Into Powerful Mobile Apps</h1>
-                    <p class="text-xl mb-8 text-purple-100">We create high-performance mobile applications that users love. Fast development, beautiful design, and seamless functionality.</p>
-                    <div class="flex space-x-4">
-                        <a href="#apps" class="bg-white text-purple-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold text-lg shadow-lg transition duration-300">Explore Apps</a>
-                        <a href="#contact" class="border-2 border-white text-white hover:bg-white hover:text-purple-600 px-6 py-3 rounded-lg font-semibold text-lg shadow-lg transition duration-300">Get In Touch</a>
-                    </div>
-                </div>
-                <div class="md:w-1/2 flex justify-center">
-                    <div class="mobile-mockup">
-                        <div class="mobile-screen">
-                            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="App showcase" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Apps Section -->
-    <section id="apps" class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Featured Applications</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Discover our portfolio of high-quality mobile applications designed to solve real problems with elegant solutions.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- App Card 1 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden app-card transition duration-300">
-                    <div class="h-48 bg-gradient-to-r from-blue-400 to-purple-500 flex items-center justify-center">
-                        <i class="fas fa-calendar-check text-white text-6xl"></i>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-xl font-bold text-gray-900">TaskFlow Pro</h3>
-                            <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">NEW</span>
-                        </div>
-                        <p class="text-gray-600 mb-4">The ultimate productivity app that helps you organize tasks, set reminders, and track your progress with intuitive interfaces.</p>
-                        <div class="flex space-x-3">
-                            <a href="#" class="flex items-center text-gray-800 hover:text-purple-600">
-                                <i class="fab fa-apple mr-2"></i>
-                                <span>App Store</span>
-                            </a>
-                            <a href="#" class="flex items-center text-gray-800 hover:text-purple-600">
-                                <i class="fab fa-google-play mr-2"></i>
-                                <span>Play Store</span>
+    <!-- Main content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="gradient-bg text-white py-20 md:py-28">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row items-center justify-between">
+                    <div class="md:w-1/2 mb-10 md:mb-0 animate-fade-in">
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">Transform Your Ideas Into Powerful Mobile Apps</h1>
+                        <p class="text-xl mb-8 text-purple-100 max-w-lg">We create high-performance mobile applications that users love. Fast development, beautiful design, and seamless functionality.</p>
+                        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                            <a href="#apps" class="bg-white text-purple-600 hover:bg-gray-100 px-6 py-4 rounded-lg font-semibold text-lg shadow-lg transition duration-300 flex items-center justify-center">
+                                Explore Our Apps <i class="fas fa-arrow-down ml-2"></i>
                             </a>
                         </div>
-                    </div>
-                </div>
-
-                <!-- App Card 2 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden app-card transition duration-300">
-                    <div class="h-48 bg-gradient-to-r from-purple-400 to-pink-500 flex items-center justify-center">
-                        <i class="fas fa-wallet text-white text-6xl"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-4">MoneyTrack</h3>
-                        <p class="text-gray-600 mb-4">Comprehensive personal finance app that helps you budget, track expenses, and achieve your financial goals with ease.</p>
-                        <div class="flex space-x-3">
-                            <a href="#" class="flex items-center text-gray-800 hover:text-purple-600">
-                                <i class="fab fa-apple mr-2"></i>
-                                <span>App Store</span>
-                            </a>
-                            <a href="#" class="flex items-center text-gray-800 hover:text-purple-600">
-                                <i class="fab fa-google-play mr-2"></i>
-                                <span>Play Store</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- App Card 3 -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden app-card transition duration-300">
-                    <div class="h-48 bg-gradient-to-r from-pink-400 to-red-500 flex items-center justify-center">
-                        <i class="fas fa-heartbeat text-white text-6xl"></i>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-900 mb-4">HealthPulse</h3>
-                        <p class="text-gray-600 mb-4">Your personal health companion that tracks fitness activities, nutrition, sleep patterns, and provides personalized insights.</p>
-                        <div class="flex space-x-3">
-                            <a href="#" class="flex items-center text-gray-800 hover:text-purple-600">
-                                <i class="fab fa-apple mr-2"></i>
-                                <span>App Store</span>
-                            </a>
-                            <a href="#" class="flex items-center text-gray-800 hover:text-purple-600">
-                                <i class="fab fa-google-play mr-2"></i>
-                                <span>Play Store</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-12 text-center">
-                <a href="#" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700">
-                    View All Applications
-                    <i class="fas fa-arrow-right ml-2"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                <div class="p-6 rounded-lg">
-                    <div class="text-5xl font-bold text-purple-600 mb-2">1M+</div>
-                    <div class="text-xl text-gray-600">Downloads</div>
-                </div>
-                <div class="p-6 rounded-lg">
-                    <div class="text-5xl font-bold text-purple-600 mb-2">4.8</div>
-                    <div class="text-xl text-gray-600">Average Rating</div>
-                </div>
-                <div class="p-6 rounded-lg">
-                    <div class="text-5xl font-bold text-purple-600 mb-2">50+</div>
-                    <div class="text-xl text-gray-600">Countries</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 mb-10 md:mb-0">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Our team" class="rounded-xl shadow-xl w-full">
-                </div>
-                <div class="md:w-1/2 md:pl-12">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-6">About FastAppSpace</h2>
-                    <p class="text-lg text-gray-600 mb-6">Founded in 2018, FastAppSpace is a team of passionate developers, designers, and product specialists dedicated to creating mobile applications that make a difference.</p>
-                    <p class="text-lg text-gray-600 mb-6">We believe in the power of technology to solve real-world problems and enhance people's lives. Our approach combines cutting-edge development with thoughtful user experience design.</p>
-                    <div class="space-y-4">
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 mt-1">
-                                <i class="fas fa-check-circle text-purple-500"></i>
+                        <div class="mt-10 flex items-center space-x-6">
+                            <div class="flex -space-x-2">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-10 h-10 rounded-full border-2 border-white" alt="Client">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" class="w-10 h-10 rounded-full border-2 border-white" alt="Client">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-10 h-10 rounded-full border-2 border-white" alt="Client">
                             </div>
-                            <p class="ml-3 text-lg text-gray-600">Award-winning app development studio</p>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 mt-1">
-                                <i class="fas fa-check-circle text-purple-500"></i>
+                            <div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                    <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                    <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                    <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                    <i class="fas fa-star text-yellow-400 mr-1"></i>
+                                    <span class="ml-2 text-purple-100">5.0 (200+ reviews)</span>
+                                </div>
+                                <p class="text-purple-100 text-sm mt-1">Trusted by 500+ businesses worldwide</p>
                             </div>
-                            <p class="ml-3 text-lg text-gray-600">5+ years of industry experience</p>
                         </div>
-                        <div class="flex items-start">
-                            <div class="flex-shrink-0 mt-1">
-                                <i class="fas fa-check-circle text-purple-500"></i>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center animate-fade-in" style="animation-delay: 0.2s;">
+                        <div class="mobile-mockup">
+                            <div class="mobile-screen">
+                                <div class="swiper-container h-full w-full">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">
+                                            <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="App showcase" class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="App showcase" class="w-full h-full object-cover">
+                                        </div>
+                                    </div>
+                                    <div class="swiper-pagination"></div>
+                                </div>
                             </div>
-                            <p class="ml-3 text-lg text-gray-600">Client-focused development process</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Testimonials -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">What Our Users Say</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Hear from people who have experienced our apps firsthand.</p>
-            </div>
+        <!-- Apps Section -->
+        <section id="apps" class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <span class="inline-block px-3 py-1 text-sm font-semibold text-purple-600 bg-purple-100 rounded-full mb-4">PORTFOLIO</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Featured Applications</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">Discover our portfolio of high-quality mobile applications designed to solve real problems with elegant solutions.</p>
+                </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-gray-50 p-8 rounded-xl">
-                    <div class="flex items-center mb-4">
-                        <div class="flex-shrink-0">
-                            <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/women/42.jpg" alt="User testimonial">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- App Card 1 -->
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden app-card transition duration-300 hover:shadow-xl">
+                        <div class="h-48 relative overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <img src="https://images.unsplash.com/photo-1541462608143-67571c6738dd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="LingoLift app" class="w-full h-full object-cover">
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 p-6">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-bold text-white">LingoLift</h3>
+                                    <span class="bg-blue-500 text-white text-xs font-semibold px-2.5 py-0.5 rounded">NEW</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-400 text-sm mr-1"></i>
+                                    <span class="text-white text-sm">4.9 (12K reviews)</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="ml-4">
-                            <div class="font-medium text-gray-900">Sarah Johnson</div>
-                            <div class="text-purple-600">TaskFlow Pro User</div>
+                        <div class="p-6">
+                            <p class="text-gray-600 mb-4">Master any language with LingoLift - intelligent learning paths, real-world practice, and personalized feedback for faster fluency.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex space-x-3">
+                                    <a href="#" class="flex items-center text-gray-800 hover:text-blue-600 transition">
+                                        <i class="fab fa-apple mr-2"></i>
+                                        <span>App Store</span>
+                                    </a>
+                                    <a href="#" class="flex items-center text-gray-800 hover:text-blue-600 transition">
+                                        <i class="fab fa-google-play mr-2"></i>
+                                        <span>Play Store</span>
+                                    </a>
+                                </div>
+                                <span class="text-xs text-gray-500">500K+ downloads</span>
+                            </div>
                         </div>
                     </div>
-                    <p class="text-gray-600">"This app has completely transformed how I manage my daily tasks. The interface is so intuitive and the cross-device sync works flawlessly."</p>
-                    <div class="mt-4 flex">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
+
+                    <!-- App Card 2 -->
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden app-card transition duration-300 hover:shadow-xl">
+                        <div class="h-48 relative overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="MoneyTrack app" class="w-full h-full object-cover">
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 p-6">
+                                <h3 class="text-xl font-bold text-white mb-2">MoneyTrack</h3>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-400 text-sm mr-1"></i>
+                                    <span class="text-white text-sm">4.7 (8.5K reviews)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-600 mb-4">Comprehensive personal finance app that helps you budget, track expenses, and achieve your financial goals with ease.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex space-x-3">
+                                    <a href="#" class="flex items-center text-gray-800 hover:text-purple-600 transition">
+                                        <i class="fab fa-apple mr-2"></i>
+                                        <span>App Store</span>
+                                    </a>
+                                    <a href="#" class="flex items-center text-gray-800 hover:text-purple-600 transition">
+                                        <i class="fab fa-google-play mr-2"></i>
+                                        <span>Play Store</span>
+                                    </a>
+                                </div>
+                                <span class="text-xs text-gray-500">350K+ downloads</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- App Card 3 -->
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden app-card transition duration-300 hover:shadow-xl">
+                        <div class="h-48 relative overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="HealthPulse app" class="w-full h-full object-cover">
+                            </div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 p-6">
+                                <h3 class="text-xl font-bold text-white mb-2">HealthPulse</h3>
+                                <div class="flex items-center">
+                                    <i class="fas fa-star text-yellow-400 text-sm mr-1"></i>
+                                    <span class="text-white text-sm">4.8 (15K reviews)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <p class="text-gray-600 mb-4">Your personal health companion that tracks fitness activities, nutrition, sleep patterns, and provides personalized insights.</p>
+                            <div class="flex justify-between items-center">
+                                <div class="flex space-x-3">
+                                    <a href="#" class="flex items-center text-gray-800 hover:text-purple-600 transition">
+                                        <i class="fab fa-apple mr-2"></i>
+                                        <span>App Store</span>
+                                    </a>
+                                    <a href="#" class="flex items-center text-gray-800 hover:text-purple-600 transition">
+                                        <i class="fab fa-google-play mr-2"></i>
+                                        <span>Play Store</span>
+                                    </a>
+                                </div>
+                                <span class="text-xs text-gray-500">750K+ downloads</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="bg-gray-50 p-8 rounded-xl">
-                    <div class="flex items-center mb-4">
-                        <div class="flex-shrink-0">
-                            <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/men/32.jpg" alt="User testimonial">
-                        </div>
-                        <div class="ml-4">
-                            <div class="font-medium text-gray-900">Michael Chen</div>
-                            <div class="text-purple-600">MoneyTrack User</div>
-                        </div>
-                    </div>
-                    <p class="text-gray-600">"I've tried many finance apps but MoneyTrack is by far the most comprehensive yet simple to use. The reports and insights are incredibly valuable."</p>
-                    <div class="mt-4 flex">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star-half-alt text-yellow-400"></i>
-                    </div>
+                <div class="mt-12 text-center">
+                    <a href="#" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 transition transform hover:-translate-y-1">
+                        View All Applications
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
                 </div>
+            </div>
+        </section>
 
-                <div class="bg-gray-50 p-8 rounded-xl">
-                    <div class="flex items-center mb-4">
-                        <div class="flex-shrink-0">
-                            <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/women/65.jpg" alt="User testimonial">
+        <!-- Stats Section -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl shadow-xl p-8 md:p-12">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="p-6 rounded-lg bg-white/10 backdrop-blur-sm">
+                            <div class="text-5xl font-bold text-white mb-2">1M+</div>
+                            <div class="text-xl text-purple-100">Downloads</div>
                         </div>
-                        <div class="ml-4">
-                            <div class="font-medium text-gray-900">Emma Rodriguez</div>
-                            <div class="text-purple-600">HealthPulse User</div>
+                        <div class="p-6 rounded-lg bg-white/10 backdrop-blur-sm">
+                            <div class="text-5xl font-bold text-white mb-2">4.8</div>
+                            <div class="text-xl text-purple-100">Average Rating</div>
                         </div>
-                    </div>
-                    <p class="text-gray-600">"HealthPulse helped me lose 15 pounds by keeping me accountable. The sleep tracking and activity suggestions are game-changers."</p>
-                    <div class="mt-4 flex">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
+                        <div class="p-6 rounded-lg bg-white/10 backdrop-blur-sm">
+                            <div class="text-5xl font-bold text-white mb-2">50+</div>
+                            <div class="text-xl text-purple-100">Countries</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 gradient-bg text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-4">Get In Touch</h2>
-                <p class="text-xl text-purple-100 max-w-3xl mx-auto">Have a project in mind or want to learn more about our services? We'd love to hear from you.</p>
+        <!-- Process Section -->
+        <section class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <span class="inline-block px-3 py-1 text-sm font-semibold text-purple-600 bg-purple-100 rounded-full mb-4">OUR PROCESS</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How We Build Exceptional Apps</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">A proven methodology that delivers results at every stage of development.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                        <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Discovery</h3>
+                        <p class="text-gray-600">We analyze your requirements and define project scope.</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                        <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                            <i class="fas fa-pencil-ruler"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Design</h3>
+                        <p class="text-gray-600">Crafting intuitive UI/UX that delights your users.</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                        <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Development</h3>
+                        <p class="text-gray-600">Building robust, scalable applications with clean code.</p>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-xl shadow-md text-center">
+                        <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Launch</h3>
+                        <p class="text-gray-600">Deployment and ongoing support for your success.</p>
+                    </div>
+                </div>
             </div>
+        </section>
 
-            <div class="flex flex-col md:flex-row">
-                <div class="md:w-1/2 mb-10 md:mb-0">
-                    <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-8 h-full">
-                        <h3 class="text-2xl font-bold mb-6">Contact Information</h3>
-                        <div class="space-y-6">
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col lg:flex-row items-center">
+                    <div class="lg:w-1/2 mb-10 lg:mb-0 lg:pr-12">
+                        <span class="inline-block px-3 py-1 text-sm font-semibold text-purple-600 bg-purple-100 rounded-full mb-4">ABOUT US</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Meet FastAppSpace</h2>
+                        <p class="text-lg text-gray-600 mb-6">Founded in 2018, FastAppSpace is a team of passionate developers, designers, and product specialists dedicated to creating mobile applications that make a difference.</p>
+                        <p class="text-lg text-gray-600 mb-8">We believe in the power of technology to solve real-world problems and enhance people's lives. Our approach combines cutting-edge development with thoughtful user experience design.</p>
+                        
+                        <div class="space-y-4 mb-8">
                             <div class="flex items-start">
                                 <div class="flex-shrink-0 mt-1">
-                                    <i class="fas fa-map-marker-alt"></i>
+                                    <i class="fas fa-check-circle text-purple-500"></i>
                                 </div>
-                                <div class="ml-4">
-                                    <p class="text-purple-100 font-medium">Address</p>
-                                    <p class="mt-1">123 App Street, Tech Valley, CA 94000</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="flex-shrink-0 mt-1">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div class="ml-4">
-                                    <p class="text-purple-100 font-medium">Email</p>
-                                    <p class="mt-1">hello@fastappspace.com</p>
-                                </div>
+                                <p class="ml-3 text-lg text-gray-600">Award-winning app development studio with 5+ years of experience</p>
                             </div>
                             <div class="flex items-start">
                                 <div class="flex-shrink-0 mt-1">
-                                    <i class="fas fa-phone-alt"></i>
+                                    <i class="fas fa-check-circle text-purple-500"></i>
                                 </div>
-                                <div class="ml-4">
-                                    <p class="text-purple-100 font-medium">Phone</p>
-                                    <p class="mt-1">+1 (555) 123-4567</p>
+                                <p class="ml-3 text-lg text-gray-600">Client-focused development process with transparent communication</p>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 mt-1">
+                                    <i class="fas fa-check-circle text-purple-500"></i>
                                 </div>
+                                <p class="ml-3 text-lg text-gray-600">Agile methodology that adapts to your changing needs</p>
                             </div>
                         </div>
-                        <div class="mt-8">
-                            <h4 class="text-xl font-bold mb-4">Follow Us</h4>
-                            <div class="flex space-x-4">
-                                <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center hover:bg-opacity-30 transition">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center hover:bg-opacity-30 transition">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                                <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center hover:bg-opacity-30 transition">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                                <a href="#" class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center hover:bg-opacity-30 transition">
+                        
+                        <a href="#contact" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 transition">
+                            Work With Us
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-purple-100 rounded-xl overflow-hidden h-64">
+                                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Our team" class="w-full h-full object-cover">
+                            </div>
+                            <div class="bg-purple-100 rounded-xl overflow-hidden h-64">
+                                <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Our office" class="w-full h-full object-cover">
+                            </div>
+                            <div class="bg-purple-100 rounded-xl overflow-hidden h-64">
+                                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Team meeting" class="w-full h-full object-cover">
+                            </div>
+                            <div class="bg-purple-100 rounded-xl overflow-hidden h-64">
+                                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Celebration" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <span class="inline-block px-3 py-1 text-sm font-semibold text-purple-600 bg-purple-100 rounded-full mb-4">OUR TEAM</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Meet The Experts</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">The talented professionals behind your success.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                        <div class="h-64 bg-purple-100 flex items-center justify-center">
+                            <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah Johnson" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-md">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-1">Sarah Johnson</h3>
+                            <p class="text-purple-600 mb-4">Lead UI/UX Designer</p>
+                            <p class="text-gray-600 mb-4">Crafting beautiful, intuitive interfaces that users love.</p>
+                            <div class="flex justify-center space-x-4">
+                                <a href="#" class="text-gray-400 hover:text-purple-600 transition">
                                     <i class="fab fa-linkedin-in"></i>
                                 </a>
+                                <a href="#" class="text-gray-400 hover:text-purple-600 transition">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                        <div class="h-64 bg-purple-100 flex items-center justify-center">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael Chen" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-md">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-1">Michael Chen</h3>
+                            <p class="text-purple-600 mb-4">Senior iOS Developer</p>
+                            <p class="text-gray-600 mb-4">Building smooth, high-performance iOS applications.</p>
+                            <div class="flex justify-center space-x-4">
+                                <a href="#" class="text-gray-400 hover:text-purple-600 transition">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-purple-600 transition">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                        <div class="h-64 bg-purple-100 flex items-center justify-center">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Emma Rodriguez" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-md">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-1">Emma Rodriguez</h3>
+                            <p class="text-purple-600 mb-4">Android Developer</p>
+                            <p class="text-gray-600 mb-4">Creating robust Android apps with Kotlin and Jetpack.</p>
+                            <div class="flex justify-center space-x-4">
+                                <a href="#" class="text-gray-400 hover:text-purple-600 transition">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-purple-600 transition">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden text-center">
+                        <div class="h-64 bg-purple-100 flex items-center justify-center">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David Kim" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-md">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-1">David Kim</h3>
+                            <p class="text-purple-600 mb-4">Android Developer</p>
+                            <p class="text-gray-600 mb-4">Creating robust Android apps with Kotlin and Jetpack.</p>
+                            <div class="flex justify-center space-x-4">
+                                <a href="#" class="text-gray-400 hover:text-purple-600 transition">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-purple-600 transition">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="md:w-1/2 md:pl-10">
-                    <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-8">
-                        <h3 class="text-2xl font-bold mb-6">Send Us a Message</h3>
-                        <form>
-                            <div class="mb-6">
-                                <label for="name" class="block text-purple-100 font-medium mb-2">Your Name</label>
-                                <input type="text" id="name" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent placeholder-purple-200" placeholder="John Doe">
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <span class="inline-block px-3 py-1 text-sm font-semibold text-purple-600 bg-purple-100 rounded-full mb-4">CONTACT US</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Let's Build Something Amazing</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">Ready to transform your idea into a successful mobile app? Get in touch with us today.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div class="bg-white rounded-2xl shadow-xl p-8">
+                        <form id="contactForm" class="space-y-6">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                                <input type="text" name="name" id="name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
                             </div>
-                            <div class="mb-6">
-                                <label for="email" class="block text-purple-100 font-medium mb-2">Email Address</label>
-                                <input type="email" id="email" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent placeholder-purple-200" placeholder="john@example.com">
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                                <input type="email" name="email" id="email" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
                             </div>
-                            <div class="mb-6">
-                                <label for="subject" class="block text-purple-100 font-medium mb-2">Subject</label>
-                                <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent placeholder-purple-200" placeholder="How can we help?">
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                                <input type="tel" name="phone" id="phone" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500">
                             </div>
-                            <div class="mb-6">
-                                <label for="message" class="block text-purple-100 font-medium mb-2">Message</label>
-                                <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent placeholder-purple-200" placeholder="Your message here..."></textarea>
+                            <div>
+                                <label for="message" class="block text-sm font-medium text-gray-700">Project Details</label>
+                                <textarea name="message" id="message" rows="4" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-500 focus:ring-purple-500"></textarea>
                             </div>
-                            <button type="submit" class="w-full bg-white text-purple-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-semibold text-lg shadow-lg transition duration-300">Send Message</button>
+                            <div class="relative">
+                                <button type="submit" class="w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                                    <span class="submit-text">Send Message</span>
+                                    <span class="loading-spinner hidden">
+                                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        Sending...
+                                    </span>
+                                </button>
+                            </div>
                         </form>
+                    </div>
+
+                    <div class="space-y-8">
+                        <div class="bg-purple-50 rounded-xl p-8">
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">Contact Information</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <i class="fas fa-map-marker-alt text-purple-600"></i>
+                                    </div>
+                                    <p class="ml-3 text-gray-600">123 Innovation Street, Tech City, TC 12345</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <i class="fas fa-phone text-purple-600"></i>
+                                    </div>
+                                    <p class="ml-3 text-gray-600">+1 (555) 123-4567</p>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="flex-shrink-0 mt-1">
+                                        <i class="fas fa-envelope text-purple-600"></i>
+                                    </div>
+                                    <p class="ml-3 text-gray-600">contact@fastappspace.com</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-purple-50 rounded-xl p-8">
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">Business Hours</h3>
+                            <div class="space-y-2">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Monday - Friday</span>
+                                    <span class="text-gray-900 font-medium">9:00 AM - 6:00 PM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Saturday</span>
+                                    <span class="text-gray-900 font-medium">10:00 AM - 4:00 PM</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Sunday</span>
+                                    <span class="text-gray-900 font-medium">Closed</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-purple-50 rounded-xl p-8">
+                            <h3 class="text-xl font-bold text-gray-900 mb-4">Follow Us</h3>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-purple-600 hover:bg-purple-600 hover:text-white transition">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-purple-600 hover:bg-purple-600 hover:text-white transition">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-purple-600 hover:bg-purple-600 hover:text-white transition">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-purple-600 hover:bg-purple-600 hover:text-white transition">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer class="bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <div class="flex items-center mb-4">
+                <div class="space-y-4">
+                    <div class="flex items-center">
                         <i class="fas fa-rocket text-purple-500 text-2xl mr-2"></i>
                         <span class="text-xl font-bold">FastAppSpace</span>
                     </div>
-                    <p class="text-gray-400">Creating mobile experiences that delight users and drive business results.</p>
+                    <p class="text-gray-400">Transforming ideas into powerful mobile applications that users love.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-purple-500 transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-purple-500 transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-purple-500 transition">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-purple-500 transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
                 </div>
+
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
-                        <li><a href="#apps" class="text-gray-400 hover:text-white transition">Our Apps</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-white transition">About Us</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a></li>
+                        <li><a href="#home" class="text-gray-400 hover:text-purple-500 transition">Home</a></li>
+                        <li><a href="#apps" class="text-gray-400 hover:text-purple-500 transition">Our Apps</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-purple-500 transition">About Us</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-purple-500 transition">Contact</a></li>
                     </ul>
                 </div>
+
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Popular Apps</h3>
+                    <h3 class="text-lg font-semibold mb-4">Services</h3>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">TaskFlow Pro</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">MoneyTrack</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">HealthPulse</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">All Applications</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-purple-500 transition">iOS Development</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-purple-500 transition">Android Development</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-purple-500 transition">UI/UX Design</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-purple-500 transition">App Maintenance</a></li>
                     </ul>
                 </div>
+
                 <div>
                     <h3 class="text-lg font-semibold mb-4">Newsletter</h3>
-                    <p class="text-gray-400 mb-4">Subscribe to our newsletter for the latest updates and releases.</p>
-                    <div class="flex">
-                        <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 w-full">
-                        <button class="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-r-lg transition">
-                            <i class="fas fa-paper-plane"></i>
+                    <p class="text-gray-400 mb-4">Subscribe to our newsletter for the latest updates and insights.</p>
+                    <form class="space-y-2">
+                        <input type="email" placeholder="Enter your email" class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-purple-600 focus:border-transparent transition">
+                        <button type="submit" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-700 transition">
+                            Subscribe
                         </button>
-                    </div>
+                    </form>
                 </div>
             </div>
-            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400">© 2025 FastAppSpace. All rights reserved.</p>
-                <div class="flex space-x-6 mt-4 md:mt-0">
-                    <a href="#" class="text-gray-400 hover:text-white">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-white">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
+
+            <div class="border-t border-gray-800 mt-12 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm">© 2025 FastAppSpace. All rights reserved.</p>
+                    <div class="flex space-x-6 mt-4 md:mt-0">
+                        <a href="privacy.html" class="text-gray-400 hover:text-purple-500 transition text-sm">Privacy Policy</a>
+                        <a href="terms.html" class="text-gray-400 hover:text-purple-500 transition text-sm">Terms of Service</a>
+                        <a href="cookies.html" class="text-gray-400 hover:text-purple-500 transition text-sm">Cookie Policy</a>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- Cookie Consent Banner -->
+    <div id="cookieConsent" class="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 shadow-lg transform translate-y-full transition-transform duration-300 ease-in-out z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="mb-4 md:mb-0 md:mr-4">
+                    <p class="text-sm">
+                        We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies. 
+                        <a href="cookies.html" class="text-purple-400 hover:text-purple-300 underline">Read our Cookie Policy</a>
+                    </p>
+                </div>
+                <div class="flex space-x-4">
+                    <button id="cookieConsentAccept" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md text-sm font-medium transition whitespace-nowrap">
+                        Accept All
+                    </button>
+                    <button id="cookieConsentSettings" class="bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-md text-sm font-medium transition">
+                        Customize
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Settings Modal -->
+    <div id="cookieSettingsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50" role="dialog" aria-labelledby="cookieSettingsTitle" aria-modal="true">
+        <div class="bg-white rounded-lg max-w-2xl w-full mx-4 p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="cookieSettingsTitle" class="text-xl font-bold text-gray-900">Cookie Settings</h3>
+                <button id="closeCookieSettings" class="text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-full p-1" aria-label="Close cookie settings">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Essential Cookies</h4>
+                        <p class="text-sm text-gray-600">Required for the website to function properly</p>
+                    </div>
+                    <div class="relative inline-block w-12 h-6 transition duration-200 ease-in-out rounded-full bg-purple-600">
+                        <input type="checkbox" class="sr-only" checked disabled>
+                        <div class="w-6 h-6 transform translate-x-6 bg-white rounded-full shadow-md"></div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Performance Cookies</h4>
+                        <p class="text-sm text-gray-600">Help us understand how visitors interact with our website</p>
+                    </div>
+                    <div class="relative inline-block w-12 h-6 transition duration-200 ease-in-out rounded-full bg-gray-300">
+                        <input type="checkbox" class="sr-only" id="performanceCookies">
+                        <div class="w-6 h-6 transform translate-x-0 bg-white rounded-full shadow-md"></div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Functionality Cookies</h4>
+                        <p class="text-sm text-gray-600">Enable enhanced functionality and personalization</p>
+                    </div>
+                    <div class="relative inline-block w-12 h-6 transition duration-200 ease-in-out rounded-full bg-gray-300">
+                        <input type="checkbox" class="sr-only" id="functionalityCookies">
+                        <div class="w-6 h-6 transform translate-x-0 bg-white rounded-full shadow-md"></div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h4 class="font-semibold text-gray-900">Targeting Cookies</h4>
+                        <p class="text-sm text-gray-600">Used to track visitors across websites</p>
+                    </div>
+                    <div class="relative inline-block w-12 h-6 transition duration-200 ease-in-out rounded-full bg-gray-300">
+                        <input type="checkbox" class="sr-only" id="targetingCookies">
+                        <div class="w-6 h-6 transform translate-x-0 bg-white rounded-full shadow-md"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-6 flex justify-end space-x-4">
+                <button id="saveCookieSettings" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
+                    Save Preferences
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
     <script>
         // Mobile menu toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
         });
 
-        // Smooth scrolling for anchor links
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        });
+
+        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
-                    
                     // Close mobile menu if open
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    if (!mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+
+        // Form submission handling with loading state
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            const validateField = (field) => {
+                const value = field.value.trim();
+                let isValid = true;
+                let errorMessage = '';
+                
+                switch (field.type) {
+                    case 'email':
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        isValid = emailRegex.test(value);
+                        errorMessage = 'Please enter a valid email address';
+                        break;
+                    case 'tel':
+                        const phoneRegex = /^\+?[\d\s-]{10,}$/;
+                        isValid = phoneRegex.test(value);
+                        errorMessage = 'Please enter a valid phone number';
+                        break;
+                    default:
+                        isValid = value.length > 0;
+                        errorMessage = 'This field is required';
+                }
+                
+                const errorElement = field.parentElement.querySelector('.error-message');
+                if (!isValid) {
+                    field.classList.add('error');
+                    if (!errorElement) {
+                        const error = document.createElement('div');
+                        error.className = 'error-message';
+                        error.textContent = errorMessage;
+                        field.parentElement.appendChild(error);
+                    }
+                } else {
+                    field.classList.remove('error');
+                    if (errorElement) {
+                        errorElement.remove();
+                    }
+                }
+                
+                return isValid;
+            };
+            
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const fields = contactForm.querySelectorAll('input, textarea');
+                let isValid = true;
+                
+                fields.forEach(field => {
+                    if (!validateField(field)) {
+                        isValid = false;
+                    }
+                });
+                
+                if (!isValid) {
+                    return;
+                }
+                
+                // Show loading state
+                const submitButton = contactForm.querySelector('button[type="submit"]');
+                const submitText = submitButton.querySelector('.submit-text');
+                const loadingSpinner = submitButton.querySelector('.loading-spinner');
+                
+                submitText.classList.add('hidden');
+                loadingSpinner.classList.remove('hidden');
+                submitButton.disabled = true;
+                
+                try {
+                    // Simulate API call
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    
+                    // Show success message
+                    window.errorHandler.showError('Message sent successfully! We\'ll get back to you soon.', 'success');
+                    contactForm.reset();
+                } catch (error) {
+                    window.errorHandler.handleAPIError(error);
+                } finally {
+                    // Reset button state
+                    submitText.classList.remove('hidden');
+                    loadingSpinner.classList.add('hidden');
+                    submitButton.disabled = false;
+                }
+            });
+            
+            // Real-time validation
+            contactForm.querySelectorAll('input, textarea').forEach(field => {
+                field.addEventListener('blur', () => validateField(field));
+                field.addEventListener('input', () => {
+                    if (field.classList.contains('error')) {
+                        validateField(field);
+                    }
+                });
+            });
+        }
+
+        // Newsletter form handling
+        const newsletterForm = document.querySelector('form[action="#"]');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const emailInput = newsletterForm.querySelector('input[type="email"]');
+                const submitButton = newsletterForm.querySelector('button[type="submit"]');
+                
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Subscribing...';
+
+                try {
+                    // Simulate API call
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                    
+                    window.errorHandler.showError('Successfully subscribed to newsletter!', 'success');
+                    newsletterForm.reset();
+                } catch (error) {
+                    window.errorHandler.handleAPIError(error);
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = 'Subscribe';
+                }
+            });
+        }
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Cookie Consent Management
+        const cookieConsent = document.getElementById('cookieConsent');
+        const cookieSettingsModal = document.getElementById('cookieSettingsModal');
+        const cookieConsentAccept = document.getElementById('cookieConsentAccept');
+        const cookieConsentSettings = document.getElementById('cookieConsentSettings');
+        const closeCookieSettings = document.getElementById('closeCookieSettings');
+        const saveCookieSettings = document.getElementById('saveCookieSettings');
+
+        // Check if user has already made a choice
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookieConsent.classList.remove('translate-y-full');
+            }, 1000);
+        }
+
+        // Accept all cookies
+        cookieConsentAccept.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'all');
+            cookieConsent.classList.add('translate-y-full');
+            enableAllCookies();
+        });
+
+        // Open cookie settings
+        cookieConsentSettings.addEventListener('click', () => {
+            cookieSettingsModal.classList.remove('hidden');
+            cookieSettingsModal.classList.add('flex');
+            // Load saved preferences
+            loadCookiePreferences();
+        });
+
+        // Close cookie settings
+        closeCookieSettings.addEventListener('click', () => {
+            cookieSettingsModal.classList.add('hidden');
+            cookieSettingsModal.classList.remove('flex');
+        });
+
+        // Close modal when clicking outside
+        cookieSettingsModal.addEventListener('click', (e) => {
+            if (e.target === cookieSettingsModal) {
+                cookieSettingsModal.classList.add('hidden');
+                cookieSettingsModal.classList.remove('flex');
+            }
+        });
+
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !cookieSettingsModal.classList.contains('hidden')) {
+                cookieSettingsModal.classList.add('hidden');
+                cookieSettingsModal.classList.remove('flex');
+            }
+        });
+
+        // Save cookie preferences
+        saveCookieSettings.addEventListener('click', () => {
+            const preferences = {
+                performance: document.getElementById('performanceCookies').checked,
+                functionality: document.getElementById('functionalityCookies').checked,
+                targeting: document.getElementById('targetingCookies').checked
+            };
+            
+            localStorage.setItem('cookieConsent', JSON.stringify(preferences));
+            cookieSettingsModal.classList.add('hidden');
+            cookieSettingsModal.classList.remove('flex');
+            cookieConsent.classList.add('translate-y-full');
+            
+            applyCookiePreferences(preferences);
+        });
+
+        // Function to load saved preferences
+        function loadCookiePreferences() {
+            const savedPreferences = localStorage.getItem('cookieConsent');
+            if (savedPreferences && savedPreferences !== 'all') {
+                try {
+                    const preferences = JSON.parse(savedPreferences);
+                    document.getElementById('performanceCookies').checked = preferences.performance;
+                    document.getElementById('functionalityCookies').checked = preferences.functionality;
+                    document.getElementById('targetingCookies').checked = preferences.targeting;
+                    
+                    // Update toggle states
+                    updateToggleStates();
+                } catch (e) {
+                    console.error('Error loading cookie preferences:', e);
+                }
+            }
+        }
+
+        // Function to update toggle states
+        function updateToggleStates() {
+            document.querySelectorAll('.relative.inline-block').forEach(toggle => {
+                const checkbox = toggle.querySelector('input[type="checkbox"]');
+                const slider = toggle.querySelector('div:last-child');
+                
+                if (checkbox.checked) {
+                    slider.classList.remove('translate-x-0');
+                    slider.classList.add('translate-x-6');
+                    toggle.classList.remove('bg-gray-300');
+                    toggle.classList.add('bg-purple-600');
+                } else {
+                    slider.classList.remove('translate-x-6');
+                    slider.classList.add('translate-x-0');
+                    toggle.classList.remove('bg-purple-600');
+                    toggle.classList.add('bg-gray-300');
+                }
+            });
+        }
+
+        // Function to enable all cookies
+        function enableAllCookies() {
+            const preferences = {
+                performance: true,
+                functionality: true,
+                targeting: true
+            };
+            applyCookiePreferences(preferences);
+        }
+
+        // Function to apply cookie preferences
+        function applyCookiePreferences(preferences) {
+            // Apply performance cookies
+            if (preferences.performance) {
+                // Enable Google Analytics
+                console.log('Performance cookies enabled');
+            } else {
+                // Disable Google Analytics
+                console.log('Performance cookies disabled');
+            }
+
+            // Apply functionality cookies
+            if (preferences.functionality) {
+                // Enable functionality cookies
+                console.log('Functionality cookies enabled');
+            } else {
+                // Disable functionality cookies
+                console.log('Functionality cookies disabled');
+            }
+
+            // Apply targeting cookies
+            if (preferences.targeting) {
+                // Enable targeting cookies
+                console.log('Targeting cookies enabled');
+            } else {
+                // Disable targeting cookies
+                console.log('Targeting cookies disabled');
+            }
+        }
+
+        // Initialize cookie toggles
+        document.querySelectorAll('.relative.inline-block').forEach(toggle => {
+            const checkbox = toggle.querySelector('input[type="checkbox"]');
+            const slider = toggle.querySelector('div:last-child');
+            
+            toggle.addEventListener('click', () => {
+                if (!checkbox.disabled) {
+                    checkbox.checked = !checkbox.checked;
+                    if (checkbox.checked) {
+                        slider.classList.remove('translate-x-0');
+                        slider.classList.add('translate-x-6');
+                        toggle.classList.remove('bg-gray-300');
+                        toggle.classList.add('bg-purple-600');
+                    } else {
+                        slider.classList.remove('translate-x-6');
+                        slider.classList.add('translate-x-0');
+                        toggle.classList.remove('bg-purple-600');
+                        toggle.classList.add('bg-gray-300');
                     }
                 }
             });
+        });
+
+        // Back to top button functionality
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Lazy loading for images
+        document.addEventListener('DOMContentLoaded', () => {
+            const lazyImages = document.querySelectorAll('img[data-src]');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            
+            lazyImages.forEach(img => imageObserver.observe(img));
+        });
+
+        // Error boundary
+        window.addEventListener('error', (event) => {
+            console.error('Global error:', event.error);
+            window.errorHandler.showError('An unexpected error occurred. Please try again later.', 'error');
+        });
+        
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('Unhandled promise rejection:', event.reason);
+            window.errorHandler.showError('An unexpected error occurred. Please try again later.', 'error');
         });
     </script>
 </body>
