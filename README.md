@@ -165,3 +165,34 @@ Your Name
 ## 📞 Support
 
 For support, email contact@fastappspace.com or open an issue in the repository.
+
+## Setup Instructions
+
+1. Clone the repository
+2. Create a `config.js` file in the root directory with the following structure:
+```javascript
+const config = {
+    web3forms: {
+        accessKey: 'YOUR_ACCESS_KEY_HERE'
+    }
+};
+```
+3. Replace `YOUR_ACCESS_KEY_HERE` with your Web3Forms access key
+
+## Development
+
+- The main branch contains the source code
+- The gh-pages branch contains the deployed version
+- Never commit the `config.js` file to the main branch
+- The `config.js` file should only exist in the gh-pages branch
+
+## Contact Form
+
+The contact form uses Web3Forms to handle submissions. To set up:
+1. Sign up at https://web3forms.com/
+2. Get your access key
+3. Add it to the `config.js` file
+
+## Deployment
+
+The site is automatically deployed to GitHub Pages when changes are pushed to either the main or gh-pages branch.
