@@ -650,6 +650,60 @@
             transition-delay: 0.6s;
         }
     </style>
+
+    <style>
+        /* Add these styles to your existing styles */
+        #mobile-menu {
+            transition: all 0.3s ease-in-out;
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            width: 100%;
+            top: 100%;
+            left: 0;
+            z-index: 50;
+        }
+
+        #mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav-link.active {
+            background-color: #f3f4f6;
+            color: #6e8efb;
+        }
+
+        /* Media queries for responsive behavior */
+        @media (max-width: 1023px) {
+            .nav-link {
+                display: none;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            #mobile-menu {
+                display: none !important;
+            }
+            
+            .mobile-menu-button {
+                display: none !important;
+            }
+
+            .nav-link {
+                display: inline-flex !important;
+            }
+        }
+
+        /* Ensure desktop menu is visible */
+        @media (min-width: 1024px) {
+            .lg\:block {
+                display: block !important;
+            }
+        }
+    </style>
 </head>
 <body class="font-sans antialiased text-gray-800 scroll-smooth">
     <!-- Skip to main content -->
@@ -664,6 +718,7 @@
     <nav id="navbar" class="bg-white shadow-lg sticky top-0 z-50 transition-all duration-300" role="navigation" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
                 <div class="flex items-center">
                     <div class="flex-shrink-0 flex items-center">
                         <a href="#home" class="flex items-center focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-md" aria-label="FastAppSpace Home">
@@ -672,12 +727,43 @@
                         </a>
                     </div>
                 </div>
-                <div class="flex space-x-8 items-center">
-                    <a href="#home" class="nav-link hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-md border-purple-500 text-gray-900" data-section="home">Home</a>
-                    <a href="#apps" class="nav-link hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-md border-transparent text-gray-500" data-section="apps">Our Apps</a>
-                    <a href="#about" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-md" data-section="about">About</a>
-                    <a href="#contact" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-md" data-section="contact">Contact</a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:block">
+                    <div class="flex space-x-8 items-center">
+                        <a href="#home" class="nav-link hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-md border-purple-500 text-gray-900" data-section="home">Home</a>
+                        <a href="#apps" class="nav-link hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-md border-transparent text-gray-500" data-section="apps">Our Apps</a>
+                        <a href="#about" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-md" data-section="about">About</a>
+                        <a href="#contact" class="nav-link border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition focus:outline-none focus:ring-2 focus:ring-purple-500 rounded-md" data-section="contact">Contact</a>
+                    </div>
                 </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden">
+                    <button 
+                        id="mobile-menu-button"
+                        type="button"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500"
+                        aria-controls="mobile-menu"
+                        aria-expanded="false"
+                    >
+                        <span class="sr-only">Open main menu</span>
+                        <!-- Icon when menu is closed -->
+                        <i class="fas fa-bars h-6 w-6" aria-hidden="true"></i>
+                        <!-- Icon when menu is open -->
+                        <i class="fas fa-times h-6 w-6 hidden" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden" role="menu" aria-orientation="vertical" aria-labelledby="mobile-menu-button">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white shadow-lg">
+                <a href="#home" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-900 hover:bg-purple-50 hover:text-purple-600 transition" data-section="home">Home</a>
+                <a href="#apps" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:bg-purple-50 hover:text-purple-600 transition" data-section="apps">Our Apps</a>
+                <a href="#about" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:bg-purple-50 hover:text-purple-600 transition" data-section="about">About</a>
+                <a href="#contact" class="mobile-nav-link block px-3 py-2 rounded-md text-base font-medium text-gray-500 hover:bg-purple-50 hover:text-purple-600 transition" data-section="contact">Contact</a>
             </div>
         </div>
     </nav>
@@ -1964,6 +2050,132 @@
 
         // Add resize event listener to handle responsive behavior
         window.addEventListener('resize', revealOnScroll);
+    </script>
+
+    <script>
+        // Add this to your existing JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuIcon = mobileMenuButton.querySelector('.fa-bars');
+            const mobileMenuCloseIcon = mobileMenuButton.querySelector('.fa-times');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            const desktopNavLinks = document.querySelectorAll('.nav-link');
+
+            // Toggle mobile menu
+            const toggleMobileMenu = () => {
+                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('hidden');
+                mobileMenu.classList.toggle('active');
+                mobileMenuIcon.classList.toggle('hidden');
+                mobileMenuCloseIcon.classList.toggle('hidden');
+            };
+
+            // Handle mobile menu button click
+            mobileMenuButton.addEventListener('click', toggleMobileMenu);
+
+            // Handle mobile menu link clicks
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Update active state
+                    mobileNavLinks.forEach(l => {
+                        l.classList.remove('active');
+                        l.classList.remove('text-purple-600');
+                        l.classList.add('text-gray-500');
+                    });
+                    link.classList.add('active');
+                    link.classList.remove('text-gray-500');
+                    link.classList.add('text-purple-600');
+
+                    // Close mobile menu
+                    toggleMobileMenu();
+                });
+            });
+
+            // Update active menu items based on scroll position
+            const updateActiveMenuItems = () => {
+                const sections = document.querySelectorAll('section[id]');
+                const scrollPosition = window.scrollY + 100;
+
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    const sectionId = section.getAttribute('id');
+
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        // Update desktop menu
+                        desktopNavLinks.forEach(link => {
+                            if (link.getAttribute('data-section') === sectionId) {
+                                link.classList.remove('border-transparent', 'text-gray-500');
+                                link.classList.add('border-purple-500', 'text-gray-900');
+                            } else {
+                                link.classList.remove('border-purple-500', 'text-gray-900');
+                                link.classList.add('border-transparent', 'text-gray-500');
+                            }
+                        });
+
+                        // Update mobile menu
+                        mobileNavLinks.forEach(link => {
+                            if (link.getAttribute('data-section') === sectionId) {
+                                link.classList.add('active');
+                                link.classList.remove('text-gray-500');
+                                link.classList.add('text-purple-600');
+                            } else {
+                                link.classList.remove('active');
+                                link.classList.remove('text-purple-600');
+                                link.classList.add('text-gray-500');
+                            }
+                        });
+                    }
+                });
+            };
+
+            // Add scroll event listener
+            window.addEventListener('scroll', updateActiveMenuItems);
+
+            // Initial check for active menu items
+            updateActiveMenuItems();
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target) && mobileMenu.classList.contains('active')) {
+                    toggleMobileMenu();
+                }
+            });
+
+            // Handle keyboard navigation
+            mobileMenuButton.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleMobileMenu();
+                }
+            });
+
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        link.click();
+                    }
+                });
+            });
+
+            // Handle window resize
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    if (window.innerWidth >= 1024) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.remove('active');
+                        mobileMenuIcon.classList.remove('hidden');
+                        mobileMenuCloseIcon.classList.add('hidden');
+                        mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    }
+                }, 250);
+            });
+        });
     </script>
 </body>
 </html>
