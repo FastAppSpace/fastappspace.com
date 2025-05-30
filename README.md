@@ -152,8 +152,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Your Name
 - Website: [fastappspace.com](https://fastappspace.com)
-- Email: contact@fastappspace.com
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourusername)
+- Email: fastappspace@gmail.com
+- LinkedIn: [Your LinkedIn](https://www.linkedin.com/in/artem-senenko-b3195927/)
 
 ## 🙏 Acknowledgments
 
@@ -164,7 +164,7 @@ Your Name
 
 ## 📞 Support
 
-For support, email contact@fastappspace.com or open an issue in the repository.
+For support, email fastappspace@gmail.com or open an issue in the repository.
 
 ## Setup Instructions
 
