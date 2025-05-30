@@ -51,6 +51,12 @@
     <!-- Critical CSS -->
     <style>
         /* Base styles to prevent FOUC */
+        html {
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 0.3s ease-in;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -152,10 +158,10 @@
     
     <!-- Add loading state script -->
     <script>
-        document.documentElement.classList.add('loading');
+        // Prevent FOUC (Flash of Unstyled Content)
+        document.documentElement.style.visibility = 'hidden';
         window.addEventListener('load', function() {
-            document.documentElement.classList.remove('loading');
-            document.documentElement.classList.add('loaded');
+            document.documentElement.style.visibility = 'visible';
         });
     </script>
 
