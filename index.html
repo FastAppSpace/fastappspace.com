@@ -710,6 +710,46 @@
             }
         }
     </style>
+
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8BDXNPSHMS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-8BDXNPSHMS', {
+            'cookie_flags': 'SameSite=None;Secure',
+            'anonymize_ip': true,
+            'send_page_view': false // We'll handle this manually after consent
+        });
+
+        // Track page views only after cookie consent
+        function trackPageView() {
+            gtag('event', 'page_view', {
+                page_title: document.title,
+                page_location: window.location.href,
+                page_path: window.location.pathname
+            });
+        }
+
+        // Check cookie consent before tracking
+        document.addEventListener('DOMContentLoaded', function() {
+            const cookieConsent = localStorage.getItem('cookieConsent');
+            if (cookieConsent === 'accepted' || 
+                (cookieConsent === 'custom' && JSON.parse(localStorage.getItem('cookieSettings')).analytics)) {
+                trackPageView();
+            }
+        });
+
+        // Track custom events
+        function trackEvent(eventName, eventParams = {}) {
+            const cookieConsent = localStorage.getItem('cookieConsent');
+            if (cookieConsent === 'accepted' || 
+                (cookieConsent === 'custom' && JSON.parse(localStorage.getItem('cookieSettings')).analytics)) {
+                gtag('event', eventName, eventParams);
+            }
+        }
+    </script>
 </head>
 <body class="font-sans antialiased text-gray-800 scroll-smooth">
     <!-- Skip to main content -->
@@ -1559,6 +1599,16 @@
                 </div>
                 <div class="flex items-center justify-between">
                     <div>
+                        <h4 class="font-semibold text-gray-900">Analytics Cookies</h4>
+                        <p class="text-sm text-gray-600">Help us understand how visitors interact with our website</p>
+                    </div>
+                    <div class="relative inline-block w-12 h-6 transition duration-200 ease-in-out rounded-full bg-gray-300">
+                        <input type="checkbox" class="sr-only" id="analyticsCookies">
+                        <div class="w-6 h-6 transform translate-x-0 bg-white rounded-full shadow-md"></div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div>
                         <h4 class="font-semibold text-gray-900">Functionality Cookies</h4>
                         <p class="text-sm text-gray-600">Enable enhanced functionality and personalization</p>
                     </div>
@@ -2011,13 +2061,20 @@
             const performanceCookies = document.getElementById('performanceCookies').checked;
             const functionalityCookies = document.getElementById('functionalityCookies').checked;
             const targetingCookies = document.getElementById('targetingCookies').checked;
+            const analyticsCookies = document.getElementById('analyticsCookies').checked;
 
             localStorage.setItem('cookieConsent', 'custom');
             localStorage.setItem('cookieSettings', JSON.stringify({
                 performance: performanceCookies,
                 functionality: functionalityCookies,
-                targeting: targetingCookies
+                targeting: targetingCookies,
+                analytics: analyticsCookies
             }));
+
+            // If analytics is enabled, track the page view
+            if (analyticsCookies) {
+                trackPageView();
+            }
 
             cookieSettingsModal.classList.remove('flex');
             cookieSettingsModal.classList.add('hidden');
