@@ -720,16 +720,28 @@
         gtag('config', 'G-8BDXNPSHMS', {
             'cookie_flags': 'SameSite=None;Secure',
             'anonymize_ip': true,
-            'send_page_view': false // We'll handle this manually after consent
+            'send_page_view': false,
+            'debug_mode': window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         });
 
         // Track page views only after cookie consent
         function trackPageView() {
-            gtag('event', 'page_view', {
-                page_title: document.title,
-                page_location: window.location.href,
-                page_path: window.location.pathname
-            });
+            try {
+                gtag('event', 'page_view', {
+                    page_title: document.title,
+                    page_location: window.location.href,
+                    page_path: window.location.pathname
+                });
+            } catch (error) {
+                console.warn('Analytics error:', error);
+                // Store the page view locally if analytics fails
+                const failedPageViews = JSON.parse(localStorage.getItem('failedPageViews') || '[]');
+                failedPageViews.push({
+                    timestamp: new Date().toISOString(),
+                    page: window.location.pathname
+                });
+                localStorage.setItem('failedPageViews', JSON.stringify(failedPageViews));
+            }
         }
 
         // Check cookie consent before tracking
@@ -741,14 +753,61 @@
             }
         });
 
-        // Track custom events
+        // Track custom events with error handling
         function trackEvent(eventName, eventParams = {}) {
-            const cookieConsent = localStorage.getItem('cookieConsent');
-            if (cookieConsent === 'accepted' || 
-                (cookieConsent === 'custom' && JSON.parse(localStorage.getItem('cookieSettings')).analytics)) {
-                gtag('event', eventName, eventParams);
+            try {
+                const cookieConsent = localStorage.getItem('cookieConsent');
+                if (cookieConsent === 'accepted' || 
+                    (cookieConsent === 'custom' && JSON.parse(localStorage.getItem('cookieSettings')).analytics)) {
+                    gtag('event', eventName, eventParams);
+                }
+            } catch (error) {
+                console.warn('Analytics error:', error);
+                // Store the failed event locally
+                const failedEvents = JSON.parse(localStorage.getItem('failedEvents') || '[]');
+                failedEvents.push({
+                    timestamp: new Date().toISOString(),
+                    event: eventName,
+                    params: eventParams
+                });
+                localStorage.setItem('failedEvents', JSON.stringify(failedEvents));
             }
         }
+
+        // Function to retry failed analytics events
+        function retryFailedAnalytics() {
+            try {
+                const failedPageViews = JSON.parse(localStorage.getItem('failedPageViews') || '[]');
+                const failedEvents = JSON.parse(localStorage.getItem('failedEvents') || '[]');
+
+                // Retry failed page views
+                failedPageViews.forEach(pageView => {
+                    gtag('event', 'page_view', {
+                        page_title: document.title,
+                        page_location: window.location.href,
+                        page_path: pageView.page,
+                        original_timestamp: pageView.timestamp
+                    });
+                });
+
+                // Retry failed events
+                failedEvents.forEach(event => {
+                    gtag('event', event.event, {
+                        ...event.params,
+                        original_timestamp: event.timestamp
+                    });
+                });
+
+                // Clear stored events after successful retry
+                localStorage.removeItem('failedPageViews');
+                localStorage.removeItem('failedEvents');
+            } catch (error) {
+                console.warn('Failed to retry analytics:', error);
+            }
+        }
+
+        // Retry failed analytics when connection is restored
+        window.addEventListener('online', retryFailedAnalytics);
     </script>
 </head>
 <body class="font-sans antialiased text-gray-800 scroll-smooth">
