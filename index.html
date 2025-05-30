@@ -1727,5 +1727,79 @@
             }
         });
     </script>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookieConsentBanner" class="fixed bottom-0 left-0 right-0 bg-white shadow-lg transform translate-y-full transition-transform duration-300 ease-in-out z-50" role="dialog" aria-labelledby="cookieConsentTitle">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex-1">
+                    <h3 id="cookieConsentTitle" class="text-lg font-semibold text-gray-900 mb-1">We use cookies to enhance your experience</h3>
+                    <p class="text-sm text-gray-600">By continuing to visit this site you agree to our use of cookies. <a href="cookies.html" class="text-purple-600 hover:text-purple-700 underline">Learn more</a></p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button id="openCookieSettings" class="text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                        Cookie Settings
+                    </button>
+                    <button id="acceptCookies" class="bg-purple-600 text-white px-6 py-2 rounded-lg text-sm font-medium hover:bg-purple-700 transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
+                        Accept All
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cookie consent management
+        const cookieConsentBanner = document.getElementById('cookieConsentBanner');
+        const acceptCookiesButton = document.getElementById('acceptCookies');
+        const openCookieSettingsButton = document.getElementById('openCookieSettings');
+        const cookieSettingsModal = document.getElementById('cookieSettingsModal');
+
+        // Check if user has already made a choice
+        const hasUserConsent = localStorage.getItem('cookieConsent');
+        
+        if (!hasUserConsent) {
+            // Show banner after a short delay
+            setTimeout(() => {
+                cookieConsentBanner.classList.remove('translate-y-full');
+            }, 1000);
+        }
+
+        // Handle accept all cookies
+        acceptCookiesButton.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieConsentBanner.classList.add('translate-y-full');
+        });
+
+        // Handle cookie settings
+        openCookieSettingsButton.addEventListener('click', () => {
+            cookieSettingsModal.classList.remove('hidden');
+            cookieSettingsModal.classList.add('flex');
+        });
+
+        // Handle save cookie settings
+        document.getElementById('saveCookieSettings').addEventListener('click', () => {
+            const performanceCookies = document.getElementById('performanceCookies').checked;
+            const functionalityCookies = document.getElementById('functionalityCookies').checked;
+            const targetingCookies = document.getElementById('targetingCookies').checked;
+
+            localStorage.setItem('cookieConsent', 'custom');
+            localStorage.setItem('cookieSettings', JSON.stringify({
+                performance: performanceCookies,
+                functionality: functionalityCookies,
+                targeting: targetingCookies
+            }));
+
+            cookieSettingsModal.classList.remove('flex');
+            cookieSettingsModal.classList.add('hidden');
+            cookieConsentBanner.classList.add('translate-y-full');
+        });
+
+        // Handle close cookie settings
+        document.getElementById('closeCookieSettings').addEventListener('click', () => {
+            cookieSettingsModal.classList.remove('flex');
+            cookieSettingsModal.classList.add('hidden');
+        });
+    </script>
 </body>
 </html>
