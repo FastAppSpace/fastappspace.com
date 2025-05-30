@@ -714,18 +714,32 @@
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8BDXNPSHMS"></script>
     <script>
+        // Initialize dataLayer
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-8BDXNPSHMS', {
-            'cookie_flags': 'SameSite=None;Secure',
-            'anonymize_ip': true,
-            'send_page_view': false,
-            'debug_mode': window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+
+        // Wait for the GA script to load before initializing
+        window.addEventListener('load', function() {
+            try {
+                gtag('js', new Date());
+                gtag('config', 'G-8BDXNPSHMS', {
+                    'cookie_flags': 'SameSite=None;Secure',
+                    'anonymize_ip': true,
+                    'send_page_view': false,
+                    'debug_mode': window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                });
+            } catch (error) {
+                console.warn('Failed to initialize Google Analytics:', error);
+            }
         });
 
-        // Track page views only after cookie consent
+        // Track page views only after cookie consent and when GA is ready
         function trackPageView() {
+            if (typeof gtag !== 'function') {
+                console.warn('Google Analytics not loaded yet');
+                return;
+            }
+
             try {
                 gtag('event', 'page_view', {
                     page_title: document.title,
@@ -749,12 +763,23 @@
             const cookieConsent = localStorage.getItem('cookieConsent');
             if (cookieConsent === 'accepted' || 
                 (cookieConsent === 'custom' && JSON.parse(localStorage.getItem('cookieSettings')).analytics)) {
-                trackPageView();
+                // Wait for GA to be ready
+                if (typeof gtag === 'function') {
+                    trackPageView();
+                } else {
+                    // If GA isn't ready yet, wait for it
+                    window.addEventListener('load', trackPageView);
+                }
             }
         });
 
         // Track custom events with error handling
         function trackEvent(eventName, eventParams = {}) {
+            if (typeof gtag !== 'function') {
+                console.warn('Google Analytics not loaded yet');
+                return;
+            }
+
             try {
                 const cookieConsent = localStorage.getItem('cookieConsent');
                 if (cookieConsent === 'accepted' || 
@@ -776,6 +801,11 @@
 
         // Function to retry failed analytics events
         function retryFailedAnalytics() {
+            if (typeof gtag !== 'function') {
+                console.warn('Google Analytics not loaded yet');
+                return;
+            }
+
             try {
                 const failedPageViews = JSON.parse(localStorage.getItem('failedPageViews') || '[]');
                 const failedEvents = JSON.parse(localStorage.getItem('failedEvents') || '[]');
