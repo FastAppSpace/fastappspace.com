@@ -274,6 +274,7 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         
+        /* Update mobile mockup styles for better Safari compatibility */
         .mobile-mockup {
             position: relative;
             width: 300px;
@@ -282,6 +283,12 @@
             border-radius: 40px;
             background: #f8fafc;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            perspective: 1000;
+            -webkit-perspective: 1000;
         }
         
         .mobile-mockup:before {
@@ -294,6 +301,8 @@
             left: 50%;
             transform: translateX(-50%);
             top: 0;
+            -webkit-transform: translateX(-50%);
+            z-index: 1;
         }
         
         .mobile-screen {
@@ -301,6 +310,11 @@
             height: 100%;
             overflow: hidden;
             border-radius: 28px;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            will-change: transform;
         }
         
         .nav-scrolled {
@@ -323,6 +337,8 @@
             .mobile-mockup {
                 width: 250px;
                 height: 500px;
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
             }
         }
         
@@ -602,46 +618,62 @@
         /* Add these styles to your existing styles */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
+            transform: translate3d(0, 30px, 0);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-transform: translate3d(0, 30px, 0);
+            -webkit-transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform, opacity;
         }
 
         .reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
         }
 
         .reveal-left {
             opacity: 0;
-            transform: translateX(-50px);
-            transition: all 0.8s ease;
+            transform: translate3d(-50px, 0, 0);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-transform: translate3d(-50px, 0, 0);
+            -webkit-transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform, opacity;
         }
 
         .reveal-left.active {
             opacity: 1;
-            transform: translateX(0);
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
         }
 
         .reveal-right {
             opacity: 0;
-            transform: translateX(50px);
-            transition: all 0.8s ease;
+            transform: translate3d(50px, 0, 0);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-transform: translate3d(50px, 0, 0);
+            -webkit-transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform, opacity;
         }
 
         .reveal-right.active {
             opacity: 1;
-            transform: translateX(0);
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
         }
 
         .reveal-scale {
             opacity: 0;
-            transform: scale(0.9);
-            transition: all 0.8s ease;
+            transform: scale3d(0.9, 0.9, 1);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-transform: scale3d(0.9, 0.9, 1);
+            -webkit-transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform, opacity;
         }
 
         .reveal-scale.active {
             opacity: 1;
-            transform: scale(1);
+            transform: scale3d(1, 1, 1);
+            -webkit-transform: scale3d(1, 1, 1);
         }
 
         .reveal-delay-1 {
@@ -654,6 +686,13 @@
 
         .reveal-delay-3 {
             transition-delay: 0.6s;
+        }
+
+        /* Add initial state class */
+        .reveal-initial {
+            opacity: 0;
+            transform: none;
+            transition: none;
         }
     </style>
 
@@ -2178,30 +2217,66 @@
     </script>
 
     <script>
-        // Scroll reveal animation
-        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
-
-        const revealOnScroll = () => {
-            const windowHeight = window.innerHeight;
-            const revealPoint = 150;
-
+        // Update scroll reveal animation for better Safari compatibility
+        document.addEventListener('DOMContentLoaded', function() {
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+            
+            // Add initial state class to prevent animation on load
             revealElements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                
-                if (elementTop < windowHeight - revealPoint) {
-                    element.classList.add('active');
-                }
+                element.classList.add('reveal-initial');
+                // Force hardware acceleration for Safari
+                element.style.webkitTransform = 'translateZ(0)';
+                element.style.transform = 'translateZ(0)';
             });
-        };
 
-        // Initial check for elements in view
-        revealOnScroll();
+            // Remove initial state class after a short delay
+            setTimeout(() => {
+                revealElements.forEach(element => {
+                    element.classList.remove('reveal-initial');
+                });
+            }, 100);
 
-        // Add scroll event listener
-        window.addEventListener('scroll', revealOnScroll);
+            const revealOnScroll = () => {
+                const windowHeight = window.innerHeight;
+                const revealPoint = 150;
 
-        // Add resize event listener to handle responsive behavior
-        window.addEventListener('resize', revealOnScroll);
+                revealElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    
+                    if (elementTop < windowHeight - revealPoint) {
+                        requestAnimationFrame(() => {
+                            element.classList.add('active');
+                        });
+                    }
+                });
+            };
+
+            // Initial check for elements in view
+            requestAnimationFrame(revealOnScroll);
+
+            // Add scroll event listener with throttling
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        revealOnScroll();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            // Add resize event listener with throttling
+            window.addEventListener('resize', () => {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        revealOnScroll();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+        });
     </script>
 
     <script>
