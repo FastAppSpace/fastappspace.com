@@ -54,7 +54,8 @@ Run the build script to test secret injection:
 # Set environment variables
 export WEB3FORMS_ACCESS_KEY="your-key"
 export EMAILJS_USER_ID="your-id"
-# ... other variables
+export EMAILJS_SERVICE_ID="your-service-id"
+export EMAILJS_TEMPLATE_ID="your-template-id"
 
 # Run build
 ./build.sh

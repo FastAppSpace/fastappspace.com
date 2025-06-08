@@ -102,7 +102,6 @@ class ErrorHandler {
         input.classList.add('border-red-500');
         const errorDiv = document.createElement('div');
         errorDiv.className = 'error-message text-red-500 text-sm mt-1';
-        errorDiv.textContent = message;
         input.parentElement.appendChild(errorDiv);
     }
 

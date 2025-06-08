@@ -85,9 +85,9 @@ class NavigationManager {
             }
         });
 
-        // Handle window resize
+        // Handle window resize with cleanup
         let resizeTimer;
-        window.addEventListener('resize', () => {
+        const handleResize = () => {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(() => {
                 if (window.innerWidth >= 1024) {
@@ -100,6 +100,14 @@ class NavigationManager {
                     mobileMenuButton.setAttribute('aria-expanded', 'false');
                 }
             }, 250);
+        };
+        
+        window.addEventListener('resize', handleResize);
+        
+        // Cleanup on page unload to prevent memory leaks
+        window.addEventListener('beforeunload', () => {
+            window.removeEventListener('resize', handleResize);
+            clearTimeout(resizeTimer);
         });
     }
 

@@ -216,12 +216,21 @@ class ContactFormHandler {
     createMessage(type, iconClass, text, colorClasses) {
         const messageElement = document.createElement('div');
         messageElement.className = `mt-4 p-4 ${colorClasses} rounded-md ${type}-message`;
-        messageElement.innerHTML = `
-            <div class="flex items-center">
-                <i class="${iconClass} mr-2"></i>
-                <span>${text}</span>
-            </div>
-        `;
+        
+        // Create elements safely without innerHTML to prevent XSS
+        const container = document.createElement('div');
+        container.className = 'flex items-center';
+        
+        const icon = document.createElement('i');
+        icon.className = `${iconClass} mr-2`;
+        
+        const textSpan = document.createElement('span');
+        textSpan.textContent = text; // Use textContent instead of innerHTML
+        
+        container.appendChild(icon);
+        container.appendChild(textSpan);
+        messageElement.appendChild(container);
+        
         return messageElement;
     }
 

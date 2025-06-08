@@ -20,9 +20,10 @@ npx serve
 Visit `http://localhost:3000` after starting the server.
 
 ### Deployment
-- Site deploys automatically via Netlify on push to master branch
-- Configuration in `netlify.toml`
-- Uses SPA routing redirecting all requests to `index.html`
+- Site deploys automatically via GitHub Actions on push to master branch
+- Configuration in `.github/workflows/deploy.yml`
+- Uses GitHub Pages with custom domain support
+- Environment variables injected during build process via GitHub Secrets
 
 ## Configuration Setup
 
@@ -32,11 +33,17 @@ Visit `http://localhost:3000` after starting the server.
 const config = {
     web3forms: {
         accessKey: 'YOUR_ACCESS_KEY_HERE'
+    },
+    emailjs: {
+        userId: 'YOUR_EMAILJS_USER_ID_HERE',
+        serviceId: 'YOUR_EMAILJS_SERVICE_ID_HERE',
+        templateId: 'YOUR_EMAILJS_TEMPLATE_ID_HERE'
     }
 };
 ```
 2. Never commit `config.js` to main branch
-3. Only exists in gh-pages branch for deployment
+3. Generated during GitHub Actions build process from `config.template.js`
+4. Uses environment variables set in GitHub repository secrets
 
 ## Code Architecture
 
