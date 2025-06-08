@@ -43,7 +43,6 @@ class EmailJSManager {
             if (typeof config !== 'undefined' && config.emailjs && config.emailjs.userId) {
                 emailjs.init(config.emailjs.userId);
                 this.isInitialized = true;
-                console.log('EmailJS initialized successfully');
             } else {
                 console.warn('EmailJS user ID not found in config. EmailJS features will not work.');
                 this.isInitialized = false;

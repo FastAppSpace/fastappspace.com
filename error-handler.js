@@ -25,12 +25,20 @@ class ErrorHandler {
         errorElement.className = `p-4 mb-4 rounded-lg shadow-lg transform transition-all duration-300 translate-x-full ${
             type === 'error' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'
         }`;
-        errorElement.innerHTML = `
-            <div class="flex items-center">
-                <i class="fas ${type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle'} mr-2"></i>
-                <p>${message}</p>
-            </div>
-        `;
+        
+        const flexContainer = document.createElement('div');
+        flexContainer.className = 'flex items-center';
+        
+        const icon = document.createElement('i');
+        icon.className = `fas ${type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle'} mr-2`;
+        
+        const messageText = document.createElement('p');
+        messageText.textContent = message;
+        
+        flexContainer.appendChild(icon);
+        flexContainer.appendChild(messageText);
+        errorElement.appendChild(flexContainer);
+        
         this.errorContainer.appendChild(errorElement);
 
         // Animate in
@@ -70,26 +78,42 @@ class ErrorHandler {
                 errorMessage.remove();
             }
 
-            // Validate required fields
-            if (input.hasAttribute('required') && !input.value.trim()) {
+            const sanitizedValue = this.sanitizeString(input.value);
+            
+            if (input.hasAttribute('required') && !sanitizedValue.trim()) {
                 this.showFieldError(input, 'This field is required');
+                isValid = false;
+                return;
+            }
+            
+            const maxLength = input.getAttribute('maxlength');
+            if (maxLength && sanitizedValue.length > parseInt(maxLength, 10)) {
+                this.showFieldError(input, `Input exceeds maximum length of ${maxLength} characters`);
                 isValid = false;
             }
 
-            // Validate email
-            if (input.type === 'email' && input.value) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(input.value)) {
+            if (input.type === 'email' && sanitizedValue) {
+                const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+                if (!emailRegex.test(sanitizedValue) || sanitizedValue.length > 254) {
                     this.showFieldError(input, 'Please enter a valid email address');
                     isValid = false;
                 }
             }
 
-            // Validate phone
-            if (input.name === 'phone' && input.value) {
-                const phoneRegex = /^\+?[\d\s-]{10,}$/;
-                if (!phoneRegex.test(input.value)) {
+            if (input.name === 'phone' && sanitizedValue) {
+                const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+                if (!phoneRegex.test(sanitizedValue.replace(/[\s-]/g, ''))) {
                     this.showFieldError(input, 'Please enter a valid phone number');
+                    isValid = false;
+                }
+            }
+            
+            if ((input.type === 'text' || input.type === 'textarea') && 
+                input.getAttribute('data-validate') === 'alphanumeric' && 
+                sanitizedValue) {
+                const alphanumericRegex = /^[a-zA-Z0-9\s.,'-]*$/;
+                if (!alphanumericRegex.test(sanitizedValue)) {
+                    this.showFieldError(input, 'Please use only letters, numbers, and basic punctuation');
                     isValid = false;
                 }
             }
@@ -102,8 +126,24 @@ class ErrorHandler {
         input.classList.add('border-red-500');
         const errorDiv = document.createElement('div');
         errorDiv.className = 'error-message text-red-500 text-sm mt-1';
-        errorDiv.textContent = String(message).replace(/<[^>]*>/g, '');
+        
+        errorDiv.textContent = this.sanitizeString(message);
+        
         input.parentElement.appendChild(errorDiv);
+    }
+    
+    sanitizeString(str) {
+        if (!str) return '';
+        
+        const sanitized = String(str)
+            .replace(/<[^>]*>/g, '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+            
+        return sanitized;
     }
 
     initNetworkErrorHandling() {
@@ -139,7 +179,8 @@ class ErrorHandler {
 
     handleNetworkError(error) {
         console.error('Network Error:', error);
-        this.showError('Network error occurred. Please check your connection and try again.');
+        const safeMessage = this.sanitizeString('Network error occurred. Please check your connection and try again.');
+        this.showError(safeMessage);
     }
 
     handleAPIError(error) {
@@ -164,11 +205,11 @@ class ErrorHandler {
                     message = 'Server error. Please try again later.';
                     break;
                 default:
-                    message = `Error: ${error.response.status}`;
+                    message = 'Error: ' + this.sanitizeString(error.response.status);
             }
         }
         
-        this.showError(message);
+        this.showError(this.sanitizeString(message));
     }
 }
 
