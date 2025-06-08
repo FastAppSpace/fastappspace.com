@@ -30,16 +30,64 @@ class AnalyticsManager {
      * Setup Google Analytics with error handling
      */
     setupAnalytics() {
-        window.addEventListener('load', () => {
+        const loadGtagScript = () => {
+            return new Promise((resolve, reject) => {
+                try {
+                    if (document.querySelector('script[src*="gtag/js"]')) {
+                        resolve();
+                        return;
+                    }
+                    
+                    const script = document.createElement('script');
+                    script.async = true;
+                    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-8BDXNPSHMS';
+                    
+                    script.onload = resolve;
+                    script.onerror = (e) => {
+                        console.warn('Failed to load Google Analytics script:', e);
+                        reject(e);
+                    };
+                    
+                    document.head.appendChild(script);
+                } catch (error) {
+                    console.warn('Error setting up Google Analytics script:', error);
+                    reject(error);
+                }
+            });
+        };
+        
+        // Initialize GA safely after document is fully loaded
+        window.addEventListener('load', async () => {
             try {
-                gtag('js', new Date());
-                gtag('config', 'G-8BDXNPSHMS', {
-                    'cookie_flags': 'SameSite=None;Secure',
-                    'anonymize_ip': true,
-                    'send_page_view': false,
-                    'debug_mode': this.isLocalhost()
-                });
-                this.isInitialized = true;
+                // Wait for the script to load (with a timeout)
+                const scriptLoadPromise = loadGtagScript();
+                const timeoutPromise = new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error('GA script load timeout')), 3000)
+                );
+                
+                try {
+                    await Promise.race([scriptLoadPromise, timeoutPromise]);
+                } catch (scriptError) {
+                    console.warn('Analytics script loading issue, continuing anyway:', scriptError);
+                    // Continue anyway to initialize dataLayer
+                }
+                
+                // Wait a moment for script to initialize
+                setTimeout(() => {
+                    try {
+                        gtag('js', new Date());
+                        gtag('config', 'G-8BDXNPSHMS', {
+                            'cookie_flags': 'SameSite=None;Secure',
+                            'anonymize_ip': true,
+                            'send_page_view': false,
+                            'transport_type': 'beacon',
+                            'debug_mode': this.isLocalhost()
+                        });
+                        this.isInitialized = true;
+                    } catch (configError) {
+                        console.warn('Failed to configure Google Analytics:', configError);
+                    }
+                }, 200);
             } catch (error) {
                 console.warn('Failed to initialize Google Analytics:', error);
             }
@@ -97,11 +145,20 @@ class AnalyticsManager {
         }
 
         try {
-            gtag('event', 'page_view', {
-                page_title: document.title,
-                page_location: window.location.href,
-                page_path: window.location.pathname
-            });
+            // Wrap in setTimeout to avoid blocking main thread and reduce chances of errors
+            setTimeout(() => {
+                try {
+                    gtag('event', 'page_view', {
+                        page_title: document.title,
+                        page_location: window.location.href,
+                        page_path: window.location.pathname,
+                        non_interaction: true 
+                    });
+                } catch (innerError) {
+                    console.warn('Analytics tracking error (deferred):', innerError);
+                    // Don't store failed event in setTimeout to avoid potential loops
+                }
+            }, 100);
         } catch (error) {
             console.warn('Analytics error:', error);
             this.storeFailedEvent('page_view', {

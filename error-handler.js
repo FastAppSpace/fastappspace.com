@@ -151,13 +151,30 @@ class ErrorHandler {
         const originalFetch = window.fetch;
         window.fetch = async (...args) => {
             try {
+                const url = args[0]?.toString() || '';
+                const isAnalyticsRequest = url.includes('google-analytics.com') || 
+                                         url.includes('analytics') || 
+                                         url.includes('gtag') || 
+                                         url.includes('collect');
+                
                 const response = await originalFetch(...args);
-                if (!response.ok) {
+                
+                if (!response.ok && !isAnalyticsRequest) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                
                 return response;
             } catch (error) {
-                this.handleNetworkError(error);
+                const url = args[0]?.toString() || '';
+                const isOurDomain = url.includes(window.location.hostname) || 
+                                   url.includes('web3forms.com') || 
+                                   url.includes('api.') ||
+                                   !url.includes('://'); // Relative URLs
+                
+                if (isOurDomain) {
+                    this.handleNetworkError(error);
+                }
+                
                 throw error;
             }
         };
@@ -167,11 +184,26 @@ class ErrorHandler {
         window.XMLHttpRequest = function() {
             const xhr = new originalXHR();
             const originalOpen = xhr.open;
-            xhr.open = function() {
-                xhr.addEventListener('error', () => {
-                    this.handleNetworkError(new Error('Network request failed'));
-                });
-                return originalOpen.apply(this, arguments);
+            xhr.open = function(method, url, ...rest) {
+                const isAnalyticsRequest = url.includes('google-analytics.com') || 
+                                          url.includes('analytics') || 
+                                          url.includes('gtag') || 
+                                          url.includes('collect');
+                
+                if (!isAnalyticsRequest) {
+                    xhr.addEventListener('error', () => {
+                        const isOurDomain = url.includes(window.location.hostname) || 
+                                           url.includes('web3forms.com') || 
+                                           url.includes('api.') ||
+                                           !url.includes('://'); // Relative URLs
+                        
+                        if (isOurDomain) {
+                            this.handleNetworkError(new Error('Network request failed'));
+                        }
+                    });
+                }
+                
+                return originalOpen.apply(this, [method, url, ...rest]);
             };
             return xhr;
         };

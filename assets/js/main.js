@@ -254,29 +254,42 @@ class NavigationManager {
      */
     setupSmoothScrolling() {
         const handleSmoothScroll = (e) => {
-            e.preventDefault();
-            const targetId = e.currentTarget.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-            
-            if (!targetElement) return;
-            
-            targetElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-            
-            // Close mobile menu if open
-            const mobileMenu = document.getElementById('mobile-menu');
-            if (mobileMenu && mobileMenu.classList.contains('active')) {
-                const mobileMenuButton = document.getElementById('mobile-menu-button');
-                if (mobileMenuButton) {
-                    mobileMenuButton.click();
+            try {
+                e.preventDefault();
+                const targetId = e.currentTarget.getAttribute('href')?.substring(1);
+                
+                if (!targetId) return;
+                
+                const targetElement = document.getElementById(targetId);
+                if (!targetElement) return;
+                
+                try {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                } catch (scrollError) {
+                    console.warn('Smooth scroll error:', scrollError);
+                    window.scrollTo(0, targetElement.offsetTop);
                 }
+                
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (mobileMenu && mobileMenu.classList.contains('active')) {
+                    const mobileMenuButton = document.getElementById('mobile-menu-button');
+                    if (mobileMenuButton) {
+                        mobileMenuButton.click();
+                    }
+                }
+                
+                try {
+                    targetElement.setAttribute('tabindex', '-1');
+                    targetElement.focus();
+                } catch (focusError) {
+                    console.warn('Focus error:', focusError);
+                }
+            } catch (error) {
+                console.warn('Smooth scroll handling error:', error);
             }
-            
-            // Update focus for accessibility
-            targetElement.setAttribute('tabindex', '-1');
-            targetElement.focus();
         };
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
