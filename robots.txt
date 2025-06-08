@@ -1,10 +1,21 @@
 User-agent: *
 Allow: /
-Allow: /index.html
+
+# Block error pages and development files
+Disallow: /404.html
+Disallow: /build.sh
+Disallow: /generate-icons.sh
+Disallow: /config.js
+Disallow: /config.template.js
+Disallow: /error-handler.js
+Disallow: /.cursor/
+Disallow: /CLAUDE.md
+Disallow: /DEPLOYMENT.md
+
+# Allow important pages explicitly (for clarity)
 Allow: /privacy.html
 Allow: /terms.html
 Allow: /cookies.html
-
-Disallow: /404.html
+Allow: /honeylingo/
 
 Sitemap: https://fastappspace.com/sitemap.xml 
