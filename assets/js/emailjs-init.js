@@ -36,16 +36,21 @@ class EmailJSManager {
     }
 
     /**
-     * Initialize EmailJS with user ID
+     * Initialize EmailJS with user ID from config
      */
     initializeEmailJS() {
         try {
-            // Replace with your actual EmailJS user ID
-            emailjs.init("YOUR_USER_ID");
-            this.isInitialized = true;
-            console.log('EmailJS initialized successfully');
+            if (typeof config !== 'undefined' && config.emailjs && config.emailjs.userId) {
+                emailjs.init(config.emailjs.userId);
+                this.isInitialized = true;
+                console.log('EmailJS initialized successfully');
+            } else {
+                console.warn('EmailJS user ID not found in config. EmailJS features will not work.');
+                this.isInitialized = false;
+            }
         } catch (error) {
             console.error('Failed to initialize EmailJS:', error);
+            this.isInitialized = false;
         }
     }
 

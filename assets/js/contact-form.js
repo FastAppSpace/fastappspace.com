@@ -12,9 +12,31 @@ class ContactFormHandler {
 
     init() {
         document.addEventListener('DOMContentLoaded', () => {
+            this.setupAPIKeys();
             this.setupForm();
             this.setupValidation();
         });
+    }
+
+    /**
+     * Setup API keys from config
+     */
+    setupAPIKeys() {
+        try {
+            if (typeof config !== 'undefined' && config.web3forms && config.web3forms.accessKey) {
+                const keyElements = document.querySelectorAll('#web3forms-key, #web3forms-key-footer');
+                keyElements.forEach(element => {
+                    if (element) {
+                        element.value = config.web3forms.accessKey;
+                    }
+                });
+                console.log('Web3Forms API keys configured successfully');
+            } else {
+                console.warn('Web3Forms API key not found in config. Contact forms will not work.');
+            }
+        } catch (error) {
+            console.error('Error setting up API keys:', error);
+        }
     }
 
     /**
