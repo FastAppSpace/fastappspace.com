@@ -29,17 +29,21 @@ A modern, responsive personal portfolio website built with HTML, Tailwind CSS, a
 ```
 fastappspace.com/
 ├── index.html              # Main HTML file
+├── error-handler.js        # Error handling utility
 ├── assets/
-│   ├── icons/             # Favicon and app icons
+│   ├── icons/              # Favicon and app icons
 │   │   ├── favicon.ico
 │   │   ├── favicon-16x16.png
 │   │   ├── favicon-32x32.png
 │   │   ├── apple-touch-icon.png
 │   │   └── rocket.svg
-├── error-handler.js        # Error handling utility
-├── site.webmanifest       # PWA manifest file
-├── robots.txt             # Search engine crawler rules
-└── sitemap.xml            # XML sitemap
+│   ├── css/                # CSS styles
+│   ├── js/                 # JavaScript modules
+├── site.webmanifest        # PWA manifest file
+├── robots.txt              # Search engine crawler rules
+├── sitemap.xml             # XML sitemap
+├── config.template.js      # Configuration template
+└── build.sh                # Build script for configuration
 ```
 
 ## 🚀 Getting Started
@@ -54,7 +58,9 @@ fastappspace.com/
    cd fastappspace.com
    ```
 
-3. Open `index.html` in your browser or use a local server:
+3. Set up configuration (see [Security Setup](#security-setup) below)
+
+4. Start a local server:
    ```bash
    # Using Python
    python -m http.server 3000
@@ -63,7 +69,86 @@ fastappspace.com/
    npx serve
    ```
 
-4. Visit `http://localhost:3000` in your browser
+5. Visit `http://localhost:3000` in your browser
+
+## 🔐 Security Setup
+
+This project uses GitHub Secrets to securely inject API keys during deployment, ensuring sensitive information never appears in your public repository.
+
+### Local Development
+
+For local development, create a `config.js` file in the root:
+
+```javascript
+const config = {
+    web3forms: {
+        accessKey: 'your-local-web3forms-key'
+    },
+    emailjs: {
+        userId: 'your-local-emailjs-user-id',
+        serviceId: 'your-local-service-id',
+        templateId: 'your-local-template-id'
+    }
+};
+```
+
+**Note**: This file is gitignored and won't be committed.
+
+### Testing Build Process Locally
+
+Run the build script to test secret injection:
+
+```bash
+# Set environment variables
+export WEB3FORMS_ACCESS_KEY="your-key"
+export EMAILJS_USER_ID="your-id"
+export EMAILJS_SERVICE_ID="your-service-id"
+export EMAILJS_TEMPLATE_ID="your-template-id"
+
+# Run build
+./build.sh
+
+# Start local server
+python3 -m http.server 3000
+```
+
+## 🚀 Deployment
+
+### GitHub Pages Setup
+
+1. **Add GitHub Secrets**:
+   - Go to repository Settings → Secrets and variables → Actions → New repository secret
+   - Add the following secrets:
+     - `WEB3FORMS_ACCESS_KEY`: Your Web3Forms API key
+     - `EMAILJS_USER_ID`: Your EmailJS User ID
+     - `EMAILJS_SERVICE_ID`: Your EmailJS Service ID
+     - `EMAILJS_TEMPLATE_ID`: Your EmailJS Template ID
+
+2. **Enable GitHub Pages**:
+   - Go to repository Settings → Pages
+   - Source: "GitHub Actions"
+   - The workflow will automatically deploy on push to main/master
+
+### Deployment Process
+
+1. **Push to GitHub**: Changes to main/master branch trigger deployment
+2. **GitHub Actions**: Runs the workflow with your secrets
+3. **Build Step**: Injects secrets into config.js using build.sh
+4. **Deploy**: Deploys the built site to GitHub Pages
+
+## 📞 Getting API Keys
+
+### Web3Forms
+1. Visit [web3forms.com](https://web3forms.com/)
+2. Sign up for free account
+3. Create a new form
+4. Copy the Access Key
+
+### EmailJS
+1. Visit [emailjs.com](https://www.emailjs.com/)
+2. Create account and email service
+3. Set up email template
+4. Get User ID, Service ID, and Template ID
 
 ## 🎨 Customization
 
@@ -97,11 +182,13 @@ The website is fully responsive with breakpoints:
 
 ## 🔒 Security Features
 
-- Form validation
+- Form validation with sanitization
 - XSS protection
 - CSRF protection
 - Secure cookie handling
 - Content Security Policy
+- Environment variables for API keys
+- Gitignored configuration files
 
 ## 🚀 Performance Optimizations
 
@@ -130,19 +217,22 @@ The website is fully responsive with breakpoints:
 - Color contrast
 - Screen reader support
 
-## 🛠️ Development
+## 🆘 Troubleshooting
 
-### Prerequisites
-- Modern web browser
-- Code editor (VS Code recommended)
-- Git
+**Forms not working?**
+- Check GitHub Secrets are set correctly
+- Verify secret names match exactly
+- Check GitHub Actions logs for errors
 
-### Local Development
-1. Install dependencies (if any)
-2. Make changes to the code
-3. Test locally
-4. Commit changes
-5. Push to repository
+**Local development issues?**
+- Create local config.js with your test keys
+- Run `./build.sh` to test secret injection
+- Check browser console for JavaScript errors
+
+**Deployment fails?**
+- Check GitHub Actions permissions
+- Verify all required secrets are set
+- Review deployment logs in Actions tab
 
 ## 📝 License
 
@@ -150,10 +240,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👤 Author
 
-Your Name
+Artem Senenko
 - Website: [fastappspace.com](https://fastappspace.com)
 - Email: fastappspace@gmail.com
-- LinkedIn: [Your LinkedIn](https://www.linkedin.com/in/artem-senenko-b3195927/)
+- LinkedIn: [LinkedIn Profile](https://www.linkedin.com/in/artem-senenko-b3195927/)
 
 ## 🙏 Acknowledgments
 
@@ -161,38 +251,9 @@ Your Name
 - [Font Awesome](https://fontawesome.com)
 - [Google Fonts](https://fonts.google.com)
 - [Unsplash](https://unsplash.com) for placeholder images
+- [Web3Forms](https://web3forms.com) for form handling
+- [EmailJS](https://www.emailjs.com) for email functionality
 
 ## 📞 Support
 
 For support, email fastappspace@gmail.com or open an issue in the repository.
-
-## Setup Instructions
-
-1. Clone the repository
-2. Create a `config.js` file in the root directory with the following structure:
-```javascript
-const config = {
-    web3forms: {
-        accessKey: 'YOUR_ACCESS_KEY_HERE'
-    }
-};
-```
-3. Replace `YOUR_ACCESS_KEY_HERE` with your Web3Forms access key
-
-## Development
-
-- The main branch contains the source code
-- The gh-pages branch contains the deployed version
-- Never commit the `config.js` file to the main branch
-- The `config.js` file should only exist in the gh-pages branch
-
-## Contact Form
-
-The contact form uses Web3Forms to handle submissions. To set up:
-1. Sign up at https://web3forms.com/
-2. Get your access key
-3. Add it to the `config.js` file
-
-## Deployment
-
-The site is automatically deployed to GitHub Pages when changes are pushed to either the main or gh-pages branch.
