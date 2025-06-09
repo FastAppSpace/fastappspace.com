@@ -131,48 +131,54 @@ python3 -m http.server 3000
 
 ### Development Environment
 
-For testing changes before production:
+**Note**: GitHub Pages allows only one deployment per repository. For development testing, use local development with the `develop` branch:
 
-1. **Create development branch**:
+#### **Local Development Workflow**
+
+1. **Create develop branch**:
    ```bash
    git checkout -b develop
    git push -u origin develop
    ```
 
-2. **Set up development subdomain**:
-   - Add DNS CNAME: `dev.fastappspace.com` → `yourusername.github.io`
-   - Development builds automatically deploy to `dev.fastappspace.com`
-
-3. **Development workflow**:
+2. **Development workflow**:
    ```bash
-   # Work on develop branch
+   # Work on develop branch  
    git checkout develop
    
-   # Make changes and test
-   git add .
-   git commit -m "feat: add new feature"
-   git push origin develop
+   # Test changes locally
+   ./build.sh
+   python -m http.server 3000
+   # Test on http://localhost:3000
    
-   # Test on dev.fastappspace.com
-   # When ready, merge to master
+   # When satisfied, commit and merge to production
+   git add . && git commit -m "feat: new feature"
    git checkout master
    git merge develop
-   git push origin master
+   git push origin master  # Deploys to www.fastappspace.com
    ```
+
+#### **Alternative: GitHub Codespaces**
+
+For cloud-based development testing:
+```bash
+# In GitHub Codespaces or any dev environment
+git checkout develop
+./build.sh && python -m http.server 3000
+# Test changes before merging to master
+```
 
 ### Deployment Environments
 
-| Environment | Branch | URL | Purpose |
-|-------------|--------|-----|---------|
-| **Production** | `master` | `www.fastappspace.com` | Live site |
-| **Development** | `develop` | `dev.fastappspace.com` | Testing |
+| Environment | Platform | Branch | URL | Purpose |
+|-------------|----------|--------|-----|---------|
+| **Production** | GitHub Pages | `master` | `www.fastappspace.com` | Live site |
+| **Development** | Local/Codespaces | `develop` | `localhost:3000` | Testing |
 
 ### Deployment Process
 
-1. **Development**: Push to `develop` → deploys to `dev.fastappspace.com`
-2. **Production**: Push to `master` → deploys to `www.fastappspace.com`
-3. **GitHub Actions**: Runs workflows with your secrets
-4. **Build Step**: Injects secrets into config.js using build.sh
+1. **Development**: Test locally on `develop` branch
+2. **Production**: Merge to `master` → GitHub Actions → `www.fastappspace.com`
 
 ## 📞 Getting API Keys
 
