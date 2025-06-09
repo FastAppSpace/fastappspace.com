@@ -114,7 +114,7 @@ python3 -m http.server 3000
 
 ## 🚀 Deployment
 
-### GitHub Pages Setup
+### Production (GitHub Pages)
 
 1. **Add GitHub Secrets**:
    - Go to repository Settings → Secrets and variables → Actions → New repository secret
@@ -127,14 +127,52 @@ python3 -m http.server 3000
 2. **Enable GitHub Pages**:
    - Go to repository Settings → Pages
    - Source: "GitHub Actions"
-   - The workflow will automatically deploy on push to main/master
+   - Custom domain: `www.fastappspace.com`
+
+### Development Environment
+
+For testing changes before production:
+
+1. **Create development branch**:
+   ```bash
+   git checkout -b develop
+   git push -u origin develop
+   ```
+
+2. **Set up development subdomain**:
+   - Add DNS CNAME: `dev.fastappspace.com` → `yourusername.github.io`
+   - Development builds automatically deploy to `dev.fastappspace.com`
+
+3. **Development workflow**:
+   ```bash
+   # Work on develop branch
+   git checkout develop
+   
+   # Make changes and test
+   git add .
+   git commit -m "feat: add new feature"
+   git push origin develop
+   
+   # Test on dev.fastappspace.com
+   # When ready, merge to master
+   git checkout master
+   git merge develop
+   git push origin master
+   ```
+
+### Deployment Environments
+
+| Environment | Branch | URL | Purpose |
+|-------------|--------|-----|---------|
+| **Production** | `master` | `www.fastappspace.com` | Live site |
+| **Development** | `develop` | `dev.fastappspace.com` | Testing |
 
 ### Deployment Process
 
-1. **Push to GitHub**: Changes to main/master branch trigger deployment
-2. **GitHub Actions**: Runs the workflow with your secrets
-3. **Build Step**: Injects secrets into config.js using build.sh
-4. **Deploy**: Deploys the built site to GitHub Pages
+1. **Development**: Push to `develop` → deploys to `dev.fastappspace.com`
+2. **Production**: Push to `master` → deploys to `www.fastappspace.com`
+3. **GitHub Actions**: Runs workflows with your secrets
+4. **Build Step**: Injects secrets into config.js using build.sh
 
 ## 📞 Getting API Keys
 
