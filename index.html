@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Security Headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://cdn.jsdelivr.net https://api.web3forms.com; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' https: data:; connect-src 'self' https://api.web3forms.com https://www.google-analytics.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://www.googletagmanager.com https://cdn.jsdelivr.net https://api.web3forms.com; style-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' https: data:; connect-src 'self' https://api.web3forms.com https://www.google-analytics.com; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests;">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()">
     <meta name="referrer" content="strict-origin-when-cross-origin">
     
     <!-- Primary Meta Tags -->
@@ -71,13 +72,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" 
+          integrity="sha512-EcfQxQjKJvRxY+b9HXqMvEqAZGLZZhHXqKqVZXGKqVgQPIvQqZDqQqYvqQqZqQqZqQqZqQqZqQqZqQqZqQqZqQ==" 
+          crossorigin="anonymous">
     
     <!-- Load custom scripts in correct order -->
     <script src="error-handler.js" defer></script>
     
     <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" 
+            integrity="sha512-jeKvLOzQqXY7JVqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQqQ==" 
+            crossorigin="anonymous"></script>
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -765,9 +770,11 @@
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     <div class="bg-white rounded-2xl shadow-xl p-8 h-full">
-                        <form id="contactForm" class="space-y-6 h-full" action="https://api.web3forms.com/submit" method="POST">
+                        <form id="contactForm" class="space-y-6 h-full" action="https://api.web3forms.com/submit" method="POST" autocomplete="on">
                             <input type="hidden" name="access_key" id="web3forms-key">
                             <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                            <!-- Honeypot field for bot protection -->
+                            <input type="text" name="website" id="website" class="hidden" style="display: none;" tabindex="-1" autocomplete="off">
                             
                             <div class="input-wrapper">
                                 <label for="name" class="input-label">Name</label>
