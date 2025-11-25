@@ -63,8 +63,14 @@
     <!-- Load Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    
     <!-- Load custom scripts in correct order -->
     <script src="error-handler.js" defer></script>
+    
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -153,6 +159,12 @@
 
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8BDXNPSHMS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-8BDXNPSHMS');
+    </script>
 </head>
 <body class="font-sans antialiased text-gray-800 scroll-smooth">
     <!-- Skip to main content -->
@@ -280,8 +292,8 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
                     <span class="inline-block px-3 py-1 text-sm font-semibold text-purple-600 bg-purple-100 rounded-full mb-4">PORTFOLIO</span>
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Custom Mobile App Development Portfolio</h2>
-                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">iOS and Android applications developed by our expert team. See how we've helped businesses succeed with professional mobile app development solutions.</p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Projects</h2>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">Mobile apps and web platforms developed by our expert team. See how we've helped businesses succeed with professional development solutions.</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -1067,6 +1079,28 @@
             </div>
         </div>
     </div>
+
+    <!-- Initialize Swiper -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const swiper = new Swiper('.swiper-container', {
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                effect: 'fade',
+                fadeEffect: {
+                    crossFade: true
+                },
+                speed: 800,
+            });
+        });
+    </script>
 
 </body>
 </html>
