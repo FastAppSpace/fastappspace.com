@@ -114,7 +114,7 @@ python3 -m http.server 3000
 
 ## 🚀 Deployment
 
-### GitHub Pages Setup
+### Production (GitHub Pages)
 
 1. **Add GitHub Secrets**:
    - Go to repository Settings → Secrets and variables → Actions → New repository secret
@@ -127,14 +127,58 @@ python3 -m http.server 3000
 2. **Enable GitHub Pages**:
    - Go to repository Settings → Pages
    - Source: "GitHub Actions"
-   - The workflow will automatically deploy on push to main/master
+   - Custom domain: `www.fastappspace.com`
+
+### Development Environment
+
+**Note**: GitHub Pages allows only one deployment per repository. For development testing, use local development with the `develop` branch:
+
+#### **Local Development Workflow**
+
+1. **Create develop branch**:
+   ```bash
+   git checkout -b develop
+   git push -u origin develop
+   ```
+
+2. **Development workflow**:
+   ```bash
+   # Work on develop branch  
+   git checkout develop
+   
+   # Test changes locally
+   ./build.sh
+   python -m http.server 3000
+   # Test on http://localhost:3000
+   
+   # When satisfied, commit and merge to production
+   git add . && git commit -m "feat: new feature"
+   git checkout master
+   git merge develop
+   git push origin master  # Deploys to www.fastappspace.com
+   ```
+
+#### **Alternative: GitHub Codespaces**
+
+For cloud-based development testing:
+```bash
+# In GitHub Codespaces or any dev environment
+git checkout develop
+./build.sh && python -m http.server 3000
+# Test changes before merging to master
+```
+
+### Deployment Environments
+
+| Environment | Platform | Branch | URL | Purpose |
+|-------------|----------|--------|-----|---------|
+| **Production** | GitHub Pages | `master` | `www.fastappspace.com` | Live site |
+| **Development** | Local/Codespaces | `develop` | `localhost:3000` | Testing |
 
 ### Deployment Process
 
-1. **Push to GitHub**: Changes to main/master branch trigger deployment
-2. **GitHub Actions**: Runs the workflow with your secrets
-3. **Build Step**: Injects secrets into config.js using build.sh
-4. **Deploy**: Deploys the built site to GitHub Pages
+1. **Development**: Test locally on `develop` branch
+2. **Production**: Merge to `master` → GitHub Actions → `www.fastappspace.com`
 
 ## 📞 Getting API Keys
 
